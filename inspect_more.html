@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { background: #111; color: white; font-family: sans-serif; padding: 20px; }
+.row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+.item { width: 220px; background: #222; padding: 10px; border-radius: 6px; }
+video { width: 100%; border-radius: 4px; display: block; }
+h4 { margin: 0 0 8px; font-size: 12px; }
+</style>
+</head>
+<body>
+<h2>Remaining Videos Inspection</h2>
+<div class="row">
+
+        <div class="item">
+          <h4>IMG_6596 (1).MP4 @ 4s</h4>
+          <video id="IMG_6596_1.MP4_4" src="assets/videos/IMG_6596 (1).MP4#t=4" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_6596 (1).MP4 @ 10s</h4>
+          <video id="IMG_6596_1.MP4_10" src="assets/videos/IMG_6596 (1).MP4#t=10" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7243 (1).MP4 @ 4s</h4>
+          <video id="IMG_7243_1.MP4_4" src="assets/videos/IMG_7243 (1).MP4#t=4" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7243 (1).MP4 @ 10s</h4>
+          <video id="IMG_7243_1.MP4_10" src="assets/videos/IMG_7243 (1).MP4#t=10" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7614.MP4 @ 4s</h4>
+          <video id="IMG_7614.MP4_4" src="assets/videos/IMG_7614.MP4#t=4" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7614.MP4 @ 10s</h4>
+          <video id="IMG_7614.MP4_10" src="assets/videos/IMG_7614.MP4#t=10" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7615.MP4 @ 4s</h4>
+          <video id="IMG_7615.MP4_4" src="assets/videos/IMG_7615.MP4#t=4" muted playsinline preload="auto"></video>
+        </div>
+        
+        <div class="item">
+          <h4>IMG_7615.MP4 @ 10s</h4>
+          <video id="IMG_7615.MP4_10" src="assets/videos/IMG_7615.MP4#t=10" muted playsinline preload="auto"></video>
+        </div>
+        
+</div>
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('video').forEach(v => {
+    const parts = v.id.split('_');
+    const t = parseFloat(parts[parts.length - 1]);
+    v.currentTime = t;
+  });
+});
+</script>
+</body>
+</html>

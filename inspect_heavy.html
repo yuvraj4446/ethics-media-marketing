@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { background: #111; color: white; font-family: sans-serif; display: flex; gap: 20px; padding: 20px; }
+.box { width: 320px; }
+video { width: 100%; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h3>IMG_6596 (1).MP4</h3>
+  <video id="v1" src="assets/videos/IMG_6596 (1).MP4" muted playsinline></video>
+</div>
+<div class="box">
+  <h3>IMG_7243 (1).MP4</h3>
+  <video id="v2" src="assets/videos/IMG_7243 (1).MP4" muted playsinline></video>
+</div>
+<div class="box">
+  <h3>IMG_7614.MP4</h3>
+  <video id="v3" src="assets/videos/IMG_7614.MP4" muted playsinline></video>
+</div>
+<div class="box">
+  <h3>IMG_7615.MP4</h3>
+  <video id="v4" src="assets/videos/IMG_7615.MP4" muted playsinline></video>
+</div>
+<script>
+['v1', 'v2', 'v3', 'v4'].forEach(id => {
+  const v = document.getElementById(id);
+  v.addEventListener('loadeddata', () => {
+    v.currentTime = 3.0;
+  });
+});
+</script>
+</body>
+</html>

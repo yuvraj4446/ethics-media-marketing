@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#111;color:white;font-family:sans-serif;padding:20px;display:flex;gap:20px;">
+  <div style="width:300px;">
+    <h3>IMG_6596 (1).MP4 @ 25s</h3>
+    <video id="v1" src="assets/videos/IMG_6596 (1).MP4#t=25" muted playsinline style="width:100%;border-radius:6px;"></video>
+  </div>
+  <div style="width:300px;">
+    <h3>IMG_7243 (1).MP4 @ 25s</h3>
+    <video id="v2" src="assets/videos/IMG_7243 (1).MP4#t=25" muted playsinline style="width:100%;border-radius:6px;"></video>
+  </div>
+<script>
+window.addEventListener('load', () => {
+  document.getElementById('v1').currentTime = 25;
+  document.getElementById('v2').currentTime = 25;
+});
+</script>
+</body>
+</html>
