@@ -63,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', closeDrawer);
   });
 
+  const mobileDrawerCta = document.querySelector('.mobile-drawer__bottom a');
+  if (mobileDrawerCta) {
+    mobileDrawerCta.addEventListener('click', closeDrawer);
+  }
+
   // --------------------------------------------------------------------------
   // 3. Category Filter Tabs (Smooth FLIP Layout Transitions)
   // --------------------------------------------------------------------------
@@ -480,152 +485,130 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // 8. Interactive Services Radial Scatter & Capability Map Controller
   // --------------------------------------------------------------------------
-  const initServicesScatter = () => {
-    const stage = document.getElementById('services-stage');
-    const hub = document.getElementById('services-hub');
-    const svg = document.getElementById('services-svg');
-    const cards = document.querySelectorAll('.service-card--interactive');
-    const particlesContainer = document.getElementById('services-particles');
+  // 8. Services Ecosystem Dynamic Radial Stage Controller (Reference)
+  // --------------------------------------------------------------------------
+  const initServicesEcosystem = () => {
+    const stage = document.getElementById('services-ecosystem-stage');
+    const core = document.getElementById('emm-ecosystem-core');
+    const svg = document.getElementById('services-ecosystem-svg');
+    if (!stage || !core) return;
 
-    if (!stage || !hub || cards.length === 0) return;
+    const cards = stage.querySelectorAll('.eco-service-card');
 
-    // Ambient floating particles
-    if (particlesContainer && particlesContainer.children.length === 0) {
-      const particleColors = ['#0047FF', '#00E5FF', '#94A3B8', '#CBD5E1'];
-      for (let i = 0; i < 16; i++) {
-        const p = document.createElement('div');
-        p.className = 'service-particle';
-        const size = Math.floor(Math.random() * 5) + 3;
-        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-        const left = Math.floor(Math.random() * 90) + 5;
-        const top = Math.floor(Math.random() * 85) + 8;
-        const delay = (Math.random() * 4).toFixed(2);
-        const duration = (Math.random() * 5 + 4).toFixed(2);
+    // Tool mapping for interactive cross-highlight
+    const serviceToolMap = {
+      'video': ['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'CapCut'],
+      'design': ['Photoshop', 'Figma', 'Canva', 'Lightroom'],
+      'marketing': ['Meta Ads', 'Google Ads', 'Google Analytics'],
+      'strategy': ['ChatGPT', 'Notion', 'Google Workspace'],
+      'cro': ['Google Analytics', 'Shopify', 'Meta Ads'],
+      'retention': ['WhatsApp Business', 'Notion', 'Make'],
+      'web': ['Shopify', 'Figma', 'Google Analytics'],
+      'automation': ['n8n', 'Make', 'Notion', 'WhatsApp Business']
+    };
 
-        p.style.width = `${size}px`;
-        p.style.height = `${size}px`;
-        p.style.backgroundColor = color;
-        p.style.left = `${left}%`;
-        p.style.top = `${top}%`;
-        p.style.opacity = (Math.random() * 0.35 + 0.15).toFixed(2);
-        p.style.animation = `hubParticleDrift ${duration}s ease-in-out ${delay}s infinite alternate`;
-        particlesContainer.appendChild(p);
-      }
-    }
+    const highlightTools = (serviceKey) => {
+      const toolNames = serviceToolMap[serviceKey] || [];
+      const toolNodes = document.querySelectorAll('.tools-orbit-stage .tool-orbit-node');
+      toolNodes.forEach(node => {
+        const toolName = node.getAttribute('data-tool');
+        if (toolNames.includes(toolName)) {
+          node.classList.add('is-active');
+        } else {
+          node.classList.remove('is-active');
+        }
+      });
+    };
 
-    // Dynamic SVG Connection Lines
-    let animLoopId = null;
-    const drawLines = () => {
-      if (!svg || window.innerWidth < 768) return;
+    const resetTools = () => {
+      const toolNodes = document.querySelectorAll('.tools-orbit-stage .tool-orbit-node');
+      toolNodes.forEach(node => node.classList.remove('is-active'));
+    };
+
+    // Calculate dynamic bezier curves on desktop
+    const updateLines = () => {
+      if (!svg || window.innerWidth < 992) return;
       const stageRect = stage.getBoundingClientRect();
-      const hubRect = hub.getBoundingClientRect();
+      const coreRect = core.getBoundingClientRect();
 
-      const hubX = hubRect.left + hubRect.width / 2 - stageRect.left;
-      const hubY = hubRect.top + hubRect.height / 2 - stageRect.top;
+      const coreX = coreRect.left + coreRect.width / 2 - stageRect.left;
+      const coreY = coreRect.top + coreRect.height / 2 - stageRect.top;
 
       cards.forEach((card, idx) => {
-        const line = document.getElementById(`svg-line-${idx}`);
+        const line = document.getElementById(`eco-line-${idx}`);
         if (!line) return;
 
         const cardRect = card.getBoundingClientRect();
         const cardX = cardRect.left + cardRect.width / 2 - stageRect.left;
         const cardY = cardRect.top + cardRect.height / 2 - stageRect.top;
 
-        const midX = (hubX + cardX) / 2;
-        const midY = (hubY + cardY) / 2;
-        const curveSign = idx % 2 === 0 ? 1 : -1;
-        const cpx = midX + curveSign * 16;
-        const cpy = midY - curveSign * 16;
+        // Curve control point slightly offset for organic cosmic aesthetic
+        const midX = (coreX + cardX) / 2;
+        const midY = (coreY + cardY) / 2;
+        const curveOffset = (idx % 2 === 0 ? 1 : -1) * 18;
+        const cpx = midX + curveOffset;
+        const cpy = midY - curveOffset;
 
-        line.setAttribute('d', `M ${hubX.toFixed(1)} ${hubY.toFixed(1)} Q ${cpx.toFixed(1)} ${cpy.toFixed(1)} ${cardX.toFixed(1)} ${cardY.toFixed(1)}`);
+        line.setAttribute('d', `M ${coreX.toFixed(1)} ${coreY.toFixed(1)} Q ${cpx.toFixed(1)} ${cpy.toFixed(1)} ${cardX.toFixed(1)} ${cardY.toFixed(1)}`);
       });
     };
 
-    const startAnimationLoop = (durationMs = 850) => {
-      if (animLoopId) cancelAnimationFrame(animLoopId);
-      const startTime = performance.now();
-
-      const loop = (currentTime) => {
-        drawLines();
-        if (currentTime - startTime < durationMs) {
-          animLoopId = requestAnimationFrame(loop);
-        } else {
-          drawLines();
-          animLoopId = null;
-        }
-      };
-      animLoopId = requestAnimationFrame(loop);
-    };
-
-    let isPinned = false;
-    hub.addEventListener('mouseenter', () => {
-      stage.classList.add('is-scattered');
-      startAnimationLoop(850);
-    });
-
-    hub.addEventListener('mouseleave', () => {
-      if (!isPinned) {
-        stage.classList.remove('is-scattered');
-        startAnimationLoop(850);
-      }
-    });
-
-    const toggleHubState = () => {
-      isPinned = !isPinned;
-      hub.classList.toggle('is-active', isPinned);
-      stage.classList.toggle('is-scattered', isPinned);
-      hub.setAttribute('aria-expanded', isPinned ? 'true' : 'false');
-      startAnimationLoop(850);
-    };
-
-    hub.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleHubState();
-    });
-
+    // Card hover & touch interactions
     cards.forEach((card, idx) => {
-      const line = document.getElementById(`svg-line-${idx}`);
+      const line = document.getElementById(`eco-line-${idx}`);
+      const serviceKey = card.getAttribute('data-service') || '';
 
-      card.addEventListener('mouseenter', () => {
-        if (line) {
-          line.style.stroke = '#0047FF';
-          line.style.strokeWidth = '2.5';
-          line.style.opacity = '1';
-        }
-      });
+      const activateCard = () => {
+        cards.forEach(c => c.classList.remove('is-active'));
+        card.classList.add('is-active');
+        stage.classList.add('has-active-card');
+        core.classList.add('is-active');
 
-      card.addEventListener('mouseleave', () => {
-        if (line) {
-          line.style.stroke = '';
-          line.style.strokeWidth = '';
-          line.style.opacity = '';
-        }
-      });
+        document.querySelectorAll('.eco-connector-line').forEach(l => l.classList.remove('is-active'));
+        if (line) line.classList.add('is-active');
+
+        highlightTools(serviceKey);
+      };
+
+      const deactivateCard = () => {
+        card.classList.remove('is-active');
+        stage.classList.remove('has-active-card');
+        core.classList.remove('is-active');
+        if (line) line.classList.remove('is-active');
+        resetTools();
+      };
+
+      card.addEventListener('mouseenter', activateCard);
+      card.addEventListener('mouseleave', deactivateCard);
+      card.addEventListener('focus', activateCard);
+      card.addEventListener('blur', deactivateCard);
 
       card.addEventListener('click', (e) => {
         e.stopPropagation();
-        const wasActive = card.classList.contains('is-active');
-        cards.forEach(c => c.classList.remove('is-active'));
-        if (!wasActive) {
-          card.classList.add('is-active');
+        if (card.classList.contains('is-active')) {
+          deactivateCard();
+        } else {
+          activateCard();
         }
-        startAnimationLoop(450);
       });
     });
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.service-card--interactive') && !e.target.closest('.services-hub')) {
+      if (!e.target.closest('.eco-service-card') && !e.target.closest('.emm-ecosystem-core')) {
         cards.forEach(c => c.classList.remove('is-active'));
+        stage.classList.remove('has-active-card');
+        core.classList.remove('is-active');
+        document.querySelectorAll('.eco-connector-line').forEach(l => l.classList.remove('is-active'));
+        resetTools();
       }
     });
 
-    window.addEventListener('resize', drawLines, { passive: true });
-    drawLines();
-    requestAnimationFrame(drawLines);
-    setTimeout(drawLines, 200);
-    setTimeout(drawLines, 500);
+    window.addEventListener('resize', updateLines, { passive: true });
+    updateLines();
+    requestAnimationFrame(updateLines);
+    setTimeout(updateLines, 250);
+    setTimeout(updateLines, 600);
   };
 
   // --------------------------------------------------------------------------
@@ -667,143 +650,149 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --------------------------------------------------------------------------
-  // 10. Horizontal Elliptical Tools Orbit Controller (Always 100% Upright)
   // --------------------------------------------------------------------------
-  const initToolsOrbitCompact = () => {
-    const stage = document.getElementById('tools-dock-stage');
-    const nodes = document.querySelectorAll('.tool-orbit-node-compact');
-    const prevBtn = document.getElementById('tools-prev-btn');
-    const nextBtn = document.getElementById('tools-next-btn');
-    const infoPill = document.getElementById('tools-orbit-info');
-    const infoText = infoPill ? (infoPill.querySelector('.tools-info__text') || infoPill) : null;
-    const emmCore = document.getElementById('emm-tools-core');
+  // 10. Tools Ecosystem Continuous 3D Orbital Controller (Reference 1)
+  // --------------------------------------------------------------------------
+  const initToolsEcosystemOrbit = () => {
+    const stage = document.getElementById('tools-orbit-stage');
+    if (!stage) return;
+    const nodes = stage.querySelectorAll('.tool-orbit-node');
+    const tooltip = document.getElementById('tools-orbit-tooltip');
+    const tooltipText = document.getElementById('tools-tooltip-text');
+    const emmCore = document.getElementById('emm-orbit-core');
 
-    if (!stage || nodes.length === 0) return;
+    if (nodes.length === 0) return;
 
-    let angle = 0;
-    const speed = 0.0035;
+    let baseAngle = 0;
+    let speed = 0.0028;
+    let targetSpeed = 0.0028;
     let isPaused = false;
-    let targetAngleOffset = 0;
-    let currentAngleOffset = 0;
+    let manualOffset = 0;
+    let targetManualOffset = 0;
 
-    const layoutNodes = () => {
+    const layoutOrbit = () => {
       const stageWidth = stage.offsetWidth;
-      const rx = Math.min(350, Math.max(130, (stageWidth - 110) / 2));
-      const ry = Math.min(85, Math.max(50, rx * 0.25));
+      const isMobile = window.innerWidth < 768;
 
-      if (!isPaused) {
-        angle += speed;
-      }
-      currentAngleOffset += (targetAngleOffset - currentAngleOffset) * 0.12;
-      const totalAngle = angle + currentAngleOffset;
+      // Elliptical radii calculation
+      const rx = isMobile 
+        ? Math.max(120, (stageWidth - 60) / 2) 
+        : Math.min(440, Math.max(180, (stageWidth - 100) / 2));
+      const ry = isMobile ? rx * 0.42 : Math.min(135, rx * 0.31);
+
+      // Smooth acceleration / deceleration
+      speed += (targetSpeed - speed) * 0.1;
+      baseAngle += speed;
+      manualOffset += (targetManualOffset - manualOffset) * 0.12;
+      const totalAngle = baseAngle + manualOffset;
 
       nodes.forEach((node, idx) => {
         const nodeAngle = (idx / nodes.length) * Math.PI * 2 + totalAngle;
         const x = Math.cos(nodeAngle) * rx;
         const y = Math.sin(nodeAngle) * ry;
 
+        // Depth perspective (front vs back of orbit)
         const depth = (Math.sin(nodeAngle) + 1) / 2;
-        const scale = (0.92 + depth * 0.14).toFixed(3);
-        const zIndex = Math.round(4 + depth * 10);
-        const opacity = (0.85 + depth * 0.15).toFixed(2);
+        const scale = (0.86 + depth * 0.22).toFixed(3);
+        const zIndex = Math.round(5 + depth * 25);
+        const opacity = (0.76 + depth * 0.24).toFixed(2);
 
-        node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
-        node.style.zIndex = zIndex;
-        node.style.opacity = opacity;
+        // If hovered/active, keep higher z-index and scale
+        if (node.classList.contains('is-active')) {
+          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.22)`;
+          node.style.zIndex = '40';
+          node.style.opacity = '1';
+        } else {
+          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
+          node.style.zIndex = zIndex;
+          node.style.opacity = opacity;
+        }
       });
 
-      requestAnimationFrame(layoutNodes);
+      requestAnimationFrame(layoutOrbit);
     };
 
-    requestAnimationFrame(layoutNodes);
+    requestAnimationFrame(layoutOrbit);
 
-    // Pause on hover
-    stage.addEventListener('mouseenter', () => { isPaused = true; });
-    stage.addEventListener('mouseleave', () => { isPaused = false; });
-    stage.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
-    stage.addEventListener('touchend', () => { isPaused = false; });
-
-    // Node hover/focus info updates
-    nodes.forEach(node => {
-      const name = node.getAttribute('data-name') || '';
-      const role = node.getAttribute('data-role') || '';
-
-      const showInfo = () => {
-        if (infoText && name) {
-          infoText.innerHTML = `<strong>${name}</strong> — ${role}`;
-        }
-        if (infoPill) {
-          infoPill.style.borderColor = '#0047FF';
-          infoPill.style.boxShadow = '0 6px 20px rgba(0, 71, 255, 0.15)';
-        }
-        node.style.zIndex = 30;
-      };
-
-      const resetInfo = () => {
-        if (infoText) {
-          infoText.textContent = '✦ Hover or tap any tool to inspect agency capability';
-        }
-        if (infoPill) {
-          infoPill.style.borderColor = '';
-          infoPill.style.boxShadow = '';
-        }
-      };
-
-      node.addEventListener('mouseenter', showInfo);
-      node.addEventListener('mouseleave', resetInfo);
-      node.addEventListener('focus', showInfo);
-      node.addEventListener('blur', resetInfo);
-      node.addEventListener('click', showInfo);
+    // Hover / touch handlers to slow and pause orbit
+    stage.addEventListener('mouseenter', () => {
+      targetSpeed = 0.0004; // Gentle slow drift when interacting
     });
 
+    stage.addEventListener('mouseleave', () => {
+      targetSpeed = 0.0028;
+      nodes.forEach(n => n.classList.remove('is-active'));
+      if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
+      if (tooltip) {
+        tooltip.style.borderColor = '';
+        tooltip.style.boxShadow = '';
+      }
+    });
+
+    stage.addEventListener('touchstart', () => {
+      targetSpeed = 0.0004;
+    }, { passive: true });
+
+    // Node interactions
+    nodes.forEach(node => {
+      const toolName = node.getAttribute('data-tool') || '';
+      const category = node.getAttribute('data-category') || '';
+      const role = node.getAttribute('data-role') || '';
+
+      const activateTool = () => {
+        nodes.forEach(n => n.classList.remove('is-active'));
+        node.classList.add('is-active');
+
+        if (tooltipText) {
+          tooltipText.innerHTML = `<strong>${toolName}</strong> (${category}) — ${role}`;
+        }
+        if (tooltip) {
+          tooltip.style.borderColor = '#00d2ff';
+          tooltip.style.boxShadow = '0 0 25px rgba(0, 180, 255, 0.4)';
+        }
+      };
+
+      node.addEventListener('mouseenter', activateTool);
+      node.addEventListener('focus', activateTool);
+      node.addEventListener('click', (e) => {
+        e.stopPropagation();
+        activateTool();
+      });
+    });
+
+    // Core interactions
     if (emmCore) {
       emmCore.addEventListener('mouseenter', () => {
-        if (infoText) {
-          infoText.innerHTML = '<strong>Ethics Media Marketing Core</strong> — Integrated Growth Strategy, Production & Attribution Engine';
+        if (tooltipText) {
+          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 21 Verified Production Tools for High-Performance Creative &amp; Growth Pipelines';
         }
-        if (infoPill) {
-          infoPill.style.borderColor = '#0047FF';
-          infoPill.style.boxShadow = '0 6px 20px rgba(0, 71, 255, 0.2)';
+        if (tooltip) {
+          tooltip.style.borderColor = '#00d2ff';
+          tooltip.style.boxShadow = '0 0 30px rgba(0, 140, 255, 0.5)';
         }
       });
-      emmCore.addEventListener('mouseleave', () => {
-        if (infoText) {
-          infoText.textContent = '✦ Hover or tap any tool to inspect agency capability';
-        }
-        if (infoPill) {
-          infoPill.style.borderColor = '';
-          infoPill.style.boxShadow = '';
+
+      emmCore.addEventListener('click', () => {
+        if (tooltipText) {
+          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 21 Verified Production Tools for High-Performance Creative &amp; Growth Pipelines';
         }
       });
     }
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        targetAngleOffset -= Math.PI / 4;
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        targetAngleOffset += Math.PI / 4;
-      });
-    }
-
-    // Drag / Swipe to rotate orbit
+    // Drag to spin with inertia
     let isDown = false;
     let startX = 0;
 
     stage.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.tools-nav-btn')) return;
       isDown = true;
       startX = e.pageX;
-      isPaused = true;
+      targetSpeed = 0;
     });
 
     window.addEventListener('mouseup', () => {
       if (isDown) {
         isDown = false;
-        isPaused = false;
+        targetSpeed = 0.0028;
       }
     });
 
@@ -811,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDown) return;
       const deltaX = e.pageX - startX;
       startX = e.pageX;
-      targetAngleOffset += deltaX * 0.006;
+      targetManualOffset += deltaX * 0.006;
     });
 
     let touchStartX = 0;
@@ -822,139 +811,129 @@ document.addEventListener('DOMContentLoaded', () => {
     stage.addEventListener('touchmove', (e) => {
       const deltaX = e.touches[0].clientX - touchStartX;
       touchStartX = e.touches[0].clientX;
-      targetAngleOffset += deltaX * 0.008;
+      targetManualOffset += deltaX * 0.008;
     }, { passive: true });
   };
 
   // --------------------------------------------------------------------------
-  // 11. Work Filter Bar Arrows & Discipline Ribbon Controller (Ref 2)
+  // 11. Selected Work Continuous Reels Carousel & Filter Controller (Reference 2)
   // --------------------------------------------------------------------------
-  const initWorkFiltersNav = () => {
-    const filterBar = document.getElementById('work-filter-bar');
-    const prevBtn = document.getElementById('filter-prev-btn');
-    const nextBtn = document.getElementById('filter-next-btn');
-    const disciplineItems = document.querySelectorAll('.discipline-item');
-    const disciplineNextBtn = document.getElementById('discipline-next-btn');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-
-    if (filterBar) {
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          filterBar.scrollBy({ left: -180, behavior: 'smooth' });
-        });
-      }
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          filterBar.scrollBy({ left: 180, behavior: 'smooth' });
-        });
-      }
-    }
-
-    disciplineItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const filter = item.getAttribute('data-filter');
-        const targetBtn = Array.from(filterButtons).find(b => b.getAttribute('data-filter') === filter);
-        if (targetBtn) {
-          targetBtn.click();
-          const workSection = document.getElementById('work');
-          if (workSection) {
-            workSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      });
-    });
-
-    if (disciplineNextBtn) {
-      disciplineNextBtn.addEventListener('click', () => {
-        const activeIdx = Array.from(filterButtons).findIndex(b => b.classList.contains('is-active'));
-        const nextIdx = (activeIdx + 1) % filterButtons.length;
-        filterButtons[nextIdx].click();
-      });
-    }
-  };
-
-  // --------------------------------------------------------------------------
-  // 12. Horizontal Project Reel Carousel Controller (Ref 2)
-  // --------------------------------------------------------------------------
-  const initFeaturedCarousel = () => {
-    const container = document.getElementById('project-reel-container');
-    const track = document.getElementById('project-reel-track');
+  const initWorkReelsCarousel = () => {
+    const viewport = document.getElementById('work-reels-viewport');
+    const track = document.getElementById('portfolio-grid');
     const prevBtn = document.getElementById('reel-prev-btn');
     const nextBtn = document.getElementById('reel-next-btn');
+    const filterBtns = document.querySelectorAll('.work__filter-bar .filter-btn');
+    const cards = track ? track.querySelectorAll('.work-reel-card') : [];
 
-    if (!container || !track) return;
+    if (!viewport || !track || cards.length === 0) return;
 
+    let isHovered = false;
+    let scrollSpeed = 0.75; // Smooth cinematic drift speed
+    let autoScrollRaf = null;
+
+    const continuousScroll = () => {
+      if (!isHovered) {
+        viewport.scrollLeft += scrollSpeed;
+
+        // Wrap around seamlessly when near end
+        if (viewport.scrollLeft >= (viewport.scrollWidth - viewport.clientWidth - 5)) {
+          viewport.scrollLeft = 0;
+        }
+      }
+      autoScrollRaf = requestAnimationFrame(continuousScroll);
+    };
+
+    autoScrollRaf = requestAnimationFrame(continuousScroll);
+
+    // Pause on hover or touch
+    viewport.addEventListener('mouseenter', () => { isHovered = true; });
+    viewport.addEventListener('mouseleave', () => { isHovered = false; });
+    viewport.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
+    viewport.addEventListener('touchend', () => { 
+      setTimeout(() => { isHovered = false; }, 1500); 
+    });
+
+    // Arrow navigation buttons
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        container.scrollBy({ left: -260, behavior: 'smooth' });
+        viewport.scrollBy({ left: -320, behavior: 'smooth' });
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        container.scrollBy({ left: 260, behavior: 'smooth' });
+        viewport.scrollBy({ left: 320, behavior: 'smooth' });
       });
     }
 
-    const videoReelCards = track.querySelectorAll('.reel-card--video');
-    videoReelCards.forEach(card => {
-      card.addEventListener('click', () => {
+    // Video auto-play on hover & click handling
+    cards.forEach(card => {
+      const video = card.querySelector('.reel-card__video');
+      if (video) {
+        card.addEventListener('mouseenter', () => {
+          video.play().catch(() => {});
+        });
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+        });
+      }
+
+      // Click on card to open Video Modal or Project Gallery Modal
+      card.addEventListener('click', (e) => {
         const videoSrc = card.getAttribute('data-video-src');
-        const name = card.querySelector('.reel-card__name')?.textContent || 'Project Reel';
-        const sub = card.querySelector('.reel-card__sub')?.textContent || 'Video Feature';
+        const title = card.getAttribute('data-title') || 'Project Showcase';
+        const subtitle = card.getAttribute('data-subtitle') || '';
+
         if (videoSrc) {
-          openVideoModal(videoSrc, name, sub);
+          e.preventDefault();
+          openVideoModal(videoSrc, title, subtitle);
+        } else {
+          e.preventDefault();
+          openProjectModal(card);
         }
       });
     });
 
-    let autoScrollInterval = null;
-    let isHovered = false;
+    // Category Filter system
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
 
-    const startAutoScroll = () => {
-      if (autoScrollInterval) clearInterval(autoScrollInterval);
-      autoScrollInterval = setInterval(() => {
-        if (!isHovered) {
-          if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
-            container.scrollLeft = 0;
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-category') || '';
+          const subcat = card.getAttribute('data-subcat') || '';
+          const filterCat = card.getAttribute('data-filter-category') || '';
+          const matches = (filter === 'all' || cat === filter || subcat === filter || filterCat === filter);
+
+          if (matches) {
+            card.style.display = '';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = '';
+            }, 10);
           } else {
-            container.scrollLeft += 1;
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.92)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 250);
           }
-        }
-      }, 35);
-    };
+        });
 
-    container.addEventListener('mouseenter', () => { isHovered = true; });
-    container.addEventListener('mouseleave', () => { isHovered = false; });
-    container.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
-    container.addEventListener('touchend', () => { isHovered = false; });
-
-    startAutoScroll();
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    container.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - container.offsetLeft;
-      scrollLeft = container.scrollLeft;
-    });
-
-    container.addEventListener('mouseleave', () => { isDown = false; });
-    container.addEventListener('mouseup', () => { isDown = false; });
-
-    container.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      container.scrollLeft = scrollLeft - walk;
+        // Smoothly scroll back to start of reel strip
+        viewport.scrollTo({ left: 0, behavior: 'smooth' });
+      });
     });
   };
 
-  // --------------------------------------------------------------------------
   // 13. Dynamic Project Card Deliverables Overlay Injector
   // --------------------------------------------------------------------------
   const initProjectCardHoverInfo = () => {
@@ -1001,11 +980,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initialize all modular controllers
-  initServicesScatter();
+  initServicesEcosystem();
   initProcessProgress();
-  initToolsOrbitCompact();
-  initWorkFiltersNav();
-  initFeaturedCarousel();
+  initToolsEcosystemOrbit();
+  
+  initWorkReelsCarousel();
   initProjectCardHoverInfo();
   initFeaturedParallax();
 });
