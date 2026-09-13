@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --------------------------------------------------------------------------
   // --------------------------------------------------------------------------
-  // 10. Tools Ecosystem Continuous 3D Orbital Controller (Reference 1)
+  // 10. Tools Ecosystem Multi-Track 3D Orbit Controller (Reference 1)
   // --------------------------------------------------------------------------
   const initToolsEcosystemOrbit = () => {
     const stage = document.getElementById('tools-orbit-stage');
@@ -663,49 +663,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (nodes.length === 0) return;
 
-    let baseAngle = 0;
-    let speed = 0.0028;
-    let targetSpeed = 0.0028;
-    let isPaused = false;
+    const innerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'inner');
+    const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') !== 'inner');
+
+    let baseAngleOuter = 0;
+    let baseAngleInner = 0;
+    let speedOuter = 0.0016;
+    let speedInner = 0.0022;
+    let targetSpeedOuter = 0.0016;
+    let targetSpeedInner = 0.0022;
     let manualOffset = 0;
     let targetManualOffset = 0;
 
     const layoutOrbit = () => {
-      const stageWidth = stage.offsetWidth;
+      const stageWidth = stage.offsetWidth || window.innerWidth;
       const isMobile = window.innerWidth < 768;
 
-      // Elliptical radii calculation
-      const rx = isMobile 
-        ? Math.max(120, (stageWidth - 60) / 2) 
-        : Math.min(440, Math.max(180, (stageWidth - 100) / 2));
-      const ry = isMobile ? rx * 0.42 : Math.min(135, rx * 0.31);
+      // Generous Elliptical Radii (Ensures nodes never hide behind the 120px EMM core)
+      const rxOuter = isMobile
+        ? Math.max(140, Math.min(185, (stageWidth - 30) / 2))
+        : Math.min(460, Math.max(260, (stageWidth - 80) / 2));
+      const ryOuter = isMobile ? rxOuter * 0.62 : Math.min(170, rxOuter * 0.38);
 
-      // Smooth acceleration / deceleration
-      speed += (targetSpeed - speed) * 0.1;
-      baseAngle += speed;
+      const rxInner = rxOuter * 0.64;
+      const ryInner = ryOuter * 0.62;
+
+      // Smooth acceleration & manual inertia
+      speedOuter += (targetSpeedOuter - speedOuter) * 0.1;
+      speedInner += (targetSpeedInner - speedInner) * 0.1;
       manualOffset += (targetManualOffset - manualOffset) * 0.12;
-      const totalAngle = baseAngle + manualOffset;
 
-      nodes.forEach((node, idx) => {
-        const nodeAngle = (idx / nodes.length) * Math.PI * 2 + totalAngle;
-        const x = Math.cos(nodeAngle) * rx;
-        const y = Math.sin(nodeAngle) * ry;
+      baseAngleOuter += speedOuter;
+      baseAngleInner += speedInner;
 
-        // Depth perspective (front vs back of orbit)
-        const depth = (Math.sin(nodeAngle) + 1) / 2;
-        const scale = (0.86 + depth * 0.22).toFixed(3);
-        const zIndex = Math.round(5 + depth * 25);
-        const opacity = (0.76 + depth * 0.24).toFixed(2);
+      const totalAngleOuter = baseAngleOuter + manualOffset;
+      const totalAngleInner = baseAngleInner + manualOffset * 1.2;
 
-        // If hovered/active, keep higher z-index and scale
+      // Position Inner Orbit Nodes
+      innerNodes.forEach((node, idx) => {
+        const angle = (idx / innerNodes.length) * Math.PI * 2 + totalAngleInner;
+        const x = Math.cos(angle) * rxInner;
+        const y = Math.sin(angle) * ryInner;
+
+        const depth = (Math.sin(angle) + 1) / 2;
+        const scale = (0.92 + depth * 0.18).toFixed(3);
+        const zIndex = Math.round(15 + depth * 18);
+        const opacity = (0.85 + depth * 0.15).toFixed(2);
+
         if (node.classList.contains('is-active')) {
-          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.22)`;
-          node.style.zIndex = '40';
+          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.24)`;
+          node.style.zIndex = '50';
           node.style.opacity = '1';
         } else {
           node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
           node.style.zIndex = zIndex;
-          node.style.opacity = opacity;
+          node.style.opacity = node.classList.contains('is-dimmed') ? '0.45' : opacity;
+        }
+      });
+
+      // Position Outer Orbit Nodes
+      outerNodes.forEach((node, idx) => {
+        const angle = (idx / outerNodes.length) * Math.PI * 2 + totalAngleOuter;
+        const x = Math.cos(angle) * rxOuter;
+        const y = Math.sin(angle) * ryOuter;
+
+        const depth = (Math.sin(angle) + 1) / 2;
+        const scale = (0.88 + depth * 0.22).toFixed(3);
+        const zIndex = Math.round(10 + depth * 25);
+        const opacity = (0.82 + depth * 0.18).toFixed(2);
+
+        if (node.classList.contains('is-active')) {
+          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.24)`;
+          node.style.zIndex = '50';
+          node.style.opacity = '1';
+        } else {
+          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
+          node.style.zIndex = zIndex;
+          node.style.opacity = node.classList.contains('is-dimmed') ? '0.45' : opacity;
         }
       });
 
@@ -714,14 +748,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     requestAnimationFrame(layoutOrbit);
 
-    // Hover / touch handlers to slow and pause orbit
+    // Hover / touch handlers to slow orbit
     stage.addEventListener('mouseenter', () => {
-      targetSpeed = 0.0004; // Gentle slow drift when interacting
+      targetSpeedOuter = 0.0003;
+      targetSpeedInner = 0.0004;
     });
 
     stage.addEventListener('mouseleave', () => {
-      targetSpeed = 0.0028;
-      nodes.forEach(n => n.classList.remove('is-active'));
+      targetSpeedOuter = 0.0016;
+      targetSpeedInner = 0.0022;
+      nodes.forEach(n => {
+        n.classList.remove('is-active');
+        n.classList.remove('is-dimmed');
+      });
       if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
       if (tooltip) {
         tooltip.style.borderColor = '';
@@ -729,18 +768,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    stage.addEventListener('touchstart', () => {
-      targetSpeed = 0.0004;
-    }, { passive: true });
-
-    // Node interactions
+    // Node click and hover activations
     nodes.forEach(node => {
       const toolName = node.getAttribute('data-tool') || '';
       const category = node.getAttribute('data-category') || '';
       const role = node.getAttribute('data-role') || '';
 
       const activateTool = () => {
-        nodes.forEach(n => n.classList.remove('is-active'));
+        nodes.forEach(n => {
+          n.classList.remove('is-active');
+          n.classList.add('is-dimmed');
+        });
+        node.classList.remove('is-dimmed');
         node.classList.add('is-active');
 
         if (tooltipText) {
@@ -764,35 +803,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (emmCore) {
       emmCore.addEventListener('mouseenter', () => {
         if (tooltipText) {
-          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 21 Verified Production Tools for High-Performance Creative &amp; Growth Pipelines';
+          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 20+ Production Tools for End-to-End Creative &amp; Growth Performance';
         }
         if (tooltip) {
           tooltip.style.borderColor = '#00d2ff';
           tooltip.style.boxShadow = '0 0 30px rgba(0, 140, 255, 0.5)';
         }
       });
-
-      emmCore.addEventListener('click', () => {
-        if (tooltipText) {
-          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 21 Verified Production Tools for High-Performance Creative &amp; Growth Pipelines';
-        }
-      });
     }
 
-    // Drag to spin with inertia
+    // Drag / Touch to Spin with Inertia
     let isDown = false;
     let startX = 0;
 
     stage.addEventListener('mousedown', (e) => {
       isDown = true;
       startX = e.pageX;
-      targetSpeed = 0;
+      targetSpeedOuter = 0;
+      targetSpeedInner = 0;
     });
 
     window.addEventListener('mouseup', () => {
       if (isDown) {
         isDown = false;
-        targetSpeed = 0.0028;
+        targetSpeedOuter = 0.0016;
+        targetSpeedInner = 0.0022;
       }
     });
 
@@ -800,25 +835,28 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDown) return;
       const deltaX = e.pageX - startX;
       startX = e.pageX;
-      targetManualOffset += deltaX * 0.006;
+      targetManualOffset += deltaX * 0.005;
     });
 
     let touchStartX = 0;
     stage.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
+      targetSpeedOuter = 0.0003;
+      targetSpeedInner = 0.0004;
     }, { passive: true });
 
     stage.addEventListener('touchmove', (e) => {
       const deltaX = e.touches[0].clientX - touchStartX;
       touchStartX = e.touches[0].clientX;
-      targetManualOffset += deltaX * 0.008;
+      targetManualOffset += deltaX * 0.007;
     }, { passive: true });
   };
 
   // --------------------------------------------------------------------------
-  // 11. Selected Work Continuous Reels Carousel & Filter Controller (Reference 2)
+  // 11. Selected Work Continuous Moving 9:16 Reels Feed (Reference 2)
   // --------------------------------------------------------------------------
   const initWorkReelsCarousel = () => {
+    const stage = document.getElementById('work-reels-stage');
     const viewport = document.getElementById('work-reels-viewport');
     const track = document.getElementById('portfolio-grid');
     const prevBtn = document.getElementById('reel-prev-btn');
@@ -826,50 +864,127 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.work__filter-bar .filter-btn');
     const cards = track ? track.querySelectorAll('.work-reel-card') : [];
 
-    if (!viewport || !track || cards.length === 0) return;
+    if (!stage || !viewport || !track || cards.length === 0) return;
 
+    let scrollPos = 0;
+    let targetSpeed = 0.85; // Continuous cinematic forward drift
+    let currentSpeed = 0.85;
     let isHovered = false;
-    let scrollSpeed = 0.75; // Smooth cinematic drift speed
-    let autoScrollRaf = null;
+    let isDragging = false;
+    let dragStartX = 0;
+    let singleTrackWidth = 0;
 
-    const continuousScroll = () => {
-      if (!isHovered) {
-        viewport.scrollLeft += scrollSpeed;
+    // Calculate width of Set A (half of total track)
+    const updateMetrics = () => {
+      // Find boundary of first set
+      let total = 0;
+      const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+      const halfCount = Math.floor(visibleCards.length / 2);
+      if (halfCount === 0) return;
 
-        // Wrap around seamlessly when near end
-        if (viewport.scrollLeft >= (viewport.scrollWidth - viewport.clientWidth - 5)) {
-          viewport.scrollLeft = 0;
-        }
+      for (let i = 0; i < halfCount; i++) {
+        total += visibleCards[i].offsetWidth + 20; // card width + gap (1.25rem = 20px)
       }
-      autoScrollRaf = requestAnimationFrame(continuousScroll);
+      singleTrackWidth = total > 0 ? total : track.scrollWidth / 2;
     };
 
-    autoScrollRaf = requestAnimationFrame(continuousScroll);
+    updateMetrics();
+    window.addEventListener('resize', updateMetrics);
 
-    // Pause on hover or touch
-    viewport.addEventListener('mouseenter', () => { isHovered = true; });
-    viewport.addEventListener('mouseleave', () => { isHovered = false; });
-    viewport.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
-    viewport.addEventListener('touchend', () => { 
-      setTimeout(() => { isHovered = false; }, 1500); 
+    // Continuous Infinite Marquee RAF loop
+    const renderLoop = () => {
+      if (singleTrackWidth > 50) {
+        if (!isHovered && !isDragging) {
+          currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+          scrollPos += currentSpeed;
+        }
+
+        // Seamless wrap without jumping
+        if (scrollPos >= singleTrackWidth) {
+          scrollPos -= singleTrackWidth;
+        } else if (scrollPos < 0) {
+          scrollPos += singleTrackWidth;
+        }
+
+        track.style.transform = `translate3d(${-scrollPos}px, 0, 0)`;
+      }
+
+      requestAnimationFrame(renderLoop);
+    };
+
+    requestAnimationFrame(renderLoop);
+
+    // Pause on hover
+    stage.addEventListener('mouseenter', () => {
+      isHovered = true;
+      targetSpeed = 0;
     });
 
-    // Arrow navigation buttons
+    stage.addEventListener('mouseleave', () => {
+      isHovered = false;
+      targetSpeed = 0.85;
+      isDragging = false;
+      stage.classList.remove('is-dragging');
+    });
+
+    // Desktop Mouse Drag
+    stage.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.pageX;
+      stage.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        stage.classList.remove('is-dragging');
+      }
+    });
+
+    stage.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.pageX - dragStartX;
+      dragStartX = e.pageX;
+      scrollPos -= deltaX * 1.1;
+    });
+
+    // Mobile Touch Swipe
+    let touchX = 0;
+    stage.addEventListener('touchstart', (e) => {
+      touchX = e.touches[0].clientX;
+      isHovered = true;
+      targetSpeed = 0;
+    }, { passive: true });
+
+    stage.addEventListener('touchmove', (e) => {
+      const deltaX = e.touches[0].clientX - touchX;
+      touchX = e.touches[0].clientX;
+      scrollPos -= deltaX * 1.2;
+    }, { passive: true });
+
+    stage.addEventListener('touchend', () => {
+      setTimeout(() => {
+        isHovered = false;
+        targetSpeed = 0.85;
+      }, 1200);
+    });
+
+    // Arrow controls
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: -320, behavior: 'smooth' });
+        scrollPos -= 320;
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        viewport.scrollBy({ left: 320, behavior: 'smooth' });
+        scrollPos += 320;
       });
     }
 
-    // Video auto-play on hover & click handling
+    // Video auto-preview on desktop hover & click modals
     cards.forEach(card => {
-      const video = card.querySelector('.reel-card__video');
+      const video = card.querySelector('.work-reel-card__video');
       if (video) {
         card.addEventListener('mouseenter', () => {
           video.play().catch(() => {});
@@ -879,7 +994,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // Click on card to open Video Modal or Project Gallery Modal
       card.addEventListener('click', (e) => {
         const videoSrc = card.getAttribute('data-video-src');
         const title = card.getAttribute('data-title') || 'Project Showcase';
@@ -909,27 +1023,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cards.forEach(card => {
           const cat = card.getAttribute('data-category') || '';
-          const subcat = card.getAttribute('data-subcat') || '';
           const filterCat = card.getAttribute('data-filter-category') || '';
-          const matches = (filter === 'all' || cat === filter || subcat === filter || filterCat === filter);
+          const matches = (filter === 'all' || cat === filter || filterCat === filter);
 
           if (matches) {
             card.style.display = '';
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = '';
-            }, 10);
+            card.style.opacity = '1';
           } else {
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.92)';
-            setTimeout(() => {
-              card.style.display = 'none';
-            }, 250);
+            card.style.display = 'none';
           }
         });
 
-        // Smoothly scroll back to start of reel strip
-        viewport.scrollTo({ left: 0, behavior: 'smooth' });
+        // Reset scroll position and recalculate track width
+        scrollPos = 0;
+        updateMetrics();
       });
     });
   };
