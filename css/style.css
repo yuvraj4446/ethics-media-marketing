@@ -6252,41 +6252,45 @@ main#main-content {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100px;
+  min-height: 86px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  will-change: transform;
-  z-index: 15;
+  z-index: 20;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   user-select: none;
+  transform-origin: center center;
   transition: opacity 0.25s ease, filter 0.25s ease;
 }
 
 .tool-logo,
 .tool-node-circle {
-  width: clamp(50px, 5.2vw, 56px);
-  height: clamp(50px, 5.2vw, 56px);
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  min-height: 58px;
   border-radius: 50%;
   background: rgba(10, 20, 38, 0.94);
   backdrop-filter: blur(10px);
   border: 1.5px solid rgba(0, 210, 255, 0.5);
-  box-shadow: 0 0 16px rgba(0, 140, 255, 0.35), 0 6px 18px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 18px rgba(0, 140, 255, 0.35), 0 6px 18px rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .tool-logo img,
 .tool-logo-img,
 .tool-icon-img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   display: block;
   opacity: 1;
@@ -6298,13 +6302,14 @@ main#main-content {
 .tool-name,
 .tool-node-label {
   font-family: var(--font-sans);
-  font-size: clamp(0.7rem, 0.88vw, 0.78rem);
+  font-size: 11px;
   font-weight: 600;
   color: #FFFFFF;
   letter-spacing: -0.01em;
   white-space: nowrap;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
-  margin-top: 5px;
+  margin-top: 6px;
+  text-align: center;
   pointer-events: none;
   transition: color 0.2s ease, text-shadow 0.2s ease;
 }

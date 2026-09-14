@@ -4,7 +4,7 @@
  * Orbital Capability Stages, 5-Step Process & Continuous Project Reels
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+const initApp = () => {
   // --------------------------------------------------------------------------
   // 1. Sticky Navigation Scroll Effect
   // --------------------------------------------------------------------------
@@ -522,9 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // --------------------------------------------------------------------------
   // 10. Tools Ecosystem Multi-Track 3D Orbit Controller (Reference 1)
-    // --------------------------------------------------------------------------
-  // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
-    // --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
   // --------------------------------------------------------------------------
   const initToolsEcosystemOrbit = () => {
@@ -541,9 +539,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
     const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
-    let baseAngleInner = 0.2;
-    let baseAngleMiddle = 0.65;
-    let baseAngleOuter = 1.15;
+    // Stagger initial angles so nodes across rings never align into spokes
+    let baseAngleInner = 0;
+    let baseAngleMiddle = Math.PI / 7;
+    let baseAngleOuter = Math.PI / 8;
 
     const defaultSpeedOuter = 0.0035;
     const defaultSpeedMiddle = 0.0050;
@@ -563,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const layoutOrbit = () => {
       const stageWidth = stage.offsetWidth || 1100;
-      const stageHeight = stage.offsetHeight || 540;
+      const stageHeight = stage.offsetHeight || 560;
       const centerX = stageWidth / 2;
       const centerY = stageHeight / 2;
       const isMobile = window.innerWidth < 768;
@@ -572,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const rxOuter = isMobile
         ? Math.max(145, Math.min(195, (stageWidth - 20) / 2))
         : Math.min(490, Math.max(300, (stageWidth - 80) / 2));
-      const ryOuter = isMobile ? rxOuter * 0.75 : Math.min(250, (stageHeight - 60) / 2);
+      const ryOuter = isMobile ? rxOuter * 0.75 : Math.min(245, (stageHeight - 60) / 2);
 
       const rxMiddle = rxOuter * 0.73;
       const ryMiddle = ryOuter * 0.74;
@@ -601,17 +600,21 @@ document.addEventListener('DOMContentLoaded', () => {
           const x = centerX + Math.cos(angle) * radiusX;
           const y = centerY + Math.sin(angle) * radiusY;
 
+          // Direct absolute coordinates
+          node.style.left = `${x.toFixed(1)}px`;
+          node.style.top = `${y.toFixed(1)}px`;
+
           // Depth metric: 0 at back, 1 at front
           const depth = (Math.sin(angle) + 1) / 2;
-          const scale = (0.88 + depth * 0.20).toFixed(3);
+          const scale = (0.92 + depth * 0.16).toFixed(3);
           const zIndex = Math.round(baseZIndex + depth * 20);
 
           if (node === activeNode || node.classList.contains('is-active')) {
-            node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) scale(1.22)`;
+            node.style.transform = 'translate(-50%, -50%) scale(1.18)';
             node.style.zIndex = '60';
             node.style.opacity = '1';
           } else {
-            node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) scale(${scale})`;
+            node.style.transform = `translate(-50%, -50%) scale(${scale})`;
             node.style.zIndex = zIndex;
             node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : '1';
           }
@@ -625,6 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(layoutOrbit);
     };
 
+    layoutOrbit();
     requestAnimationFrame(layoutOrbit);
 
     // Hover slowdown
@@ -824,6 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(renderLoop);
     };
 
+    renderLoop();
     requestAnimationFrame(renderLoop);
 
     // Pause on hover
@@ -1013,4 +1018,10 @@ document.addEventListener('DOMContentLoaded', () => {
   try { console.log('>>> Calling initWorkReelsCarousel'); initWorkReelsCarousel(); } catch(e) { console.error('Error in initWorkReelsCarousel:', e); }
   initProjectCardHoverInfo();
   initFeaturedParallax();
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
