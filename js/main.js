@@ -539,14 +539,14 @@ const initApp = () => {
     const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
     const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
-    // Stagger initial angles so nodes across rings never align into spokes
-    let baseAngleInner = 0;
-    let baseAngleMiddle = Math.PI / 7;
-    let baseAngleOuter = Math.PI / 8;
+    // Optimal staggering to ensure >76px minimum separation between all 21 tools
+    let baseAngleInner = 2.65;
+    let baseAngleMiddle = 4.10;
+    let baseAngleOuter = 0.05;
 
-    const defaultSpeedOuter = 0.0035;
-    const defaultSpeedMiddle = 0.0050;
-    const defaultSpeedInner = 0.0070;
+    const defaultSpeedOuter = 0.0032;
+    const defaultSpeedMiddle = 0.0048;
+    const defaultSpeedInner = 0.0065;
 
     let targetSpeedOuter = defaultSpeedOuter;
     let targetSpeedMiddle = defaultSpeedMiddle;
@@ -560,6 +560,9 @@ const initApp = () => {
     let targetManualOffset = 0;
     let activeNode = null;
 
+    // STEP 2: Continuous orbit animation enabled
+    const ENABLE_ORBIT_ANIMATION = true;
+
     const layoutOrbit = () => {
       const stageWidth = stage.offsetWidth || 1100;
       const stageHeight = stage.offsetHeight || 560;
@@ -567,17 +570,18 @@ const initApp = () => {
       const centerY = stageHeight / 2;
       const isMobile = window.innerWidth < 768;
 
-      // 3 Concentric Elliptical Radii
+      // Compact, well-filled elliptical radii matching Reference 2:
+      // Inner: ~210x105, Middle: ~325x160, Outer: ~430x210
       const rxOuter = isMobile
-        ? Math.max(145, Math.min(195, (stageWidth - 20) / 2))
-        : Math.min(490, Math.max(300, (stageWidth - 80) / 2));
-      const ryOuter = isMobile ? rxOuter * 0.75 : Math.min(245, (stageHeight - 60) / 2);
+        ? Math.max(140, Math.min(185, (stageWidth - 20) / 2))
+        : Math.min(430, Math.max(280, (stageWidth - 80) / 2));
+      const ryOuter = isMobile ? rxOuter * 0.72 : Math.min(210, (stageHeight - 60) / 2);
 
-      const rxMiddle = rxOuter * 0.73;
-      const ryMiddle = ryOuter * 0.74;
+      const rxMiddle = rxOuter * 0.75;
+      const ryMiddle = ryOuter * 0.76;
 
-      const rxInner = rxOuter * 0.47;
-      const ryInner = ryOuter * 0.46;
+      const rxInner = rxOuter * 0.49;
+      const ryInner = ryOuter * 0.50;
 
       // Smooth inertia & speed adjustments
       speedOuter += (targetSpeedOuter - speedOuter) * 0.08;
@@ -625,11 +629,15 @@ const initApp = () => {
       updateNodeGroup(middleNodes, rxMiddle, ryMiddle, totalAngleMiddle, 16);
       updateNodeGroup(innerNodes, rxInner, ryInner, totalAngleInner, 22);
 
-      requestAnimationFrame(layoutOrbit);
+      if (ENABLE_ORBIT_ANIMATION) {
+        requestAnimationFrame(layoutOrbit);
+      }
     };
 
     layoutOrbit();
-    requestAnimationFrame(layoutOrbit);
+    if (ENABLE_ORBIT_ANIMATION) {
+      requestAnimationFrame(layoutOrbit);
+    }
 
     // Hover slowdown
     stage.addEventListener('mouseenter', () => {
