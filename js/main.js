@@ -524,6 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 10. Tools Ecosystem Multi-Track 3D Orbit Controller (Reference 1)
     // --------------------------------------------------------------------------
   // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
+    // --------------------------------------------------------------------------
+  // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
   // --------------------------------------------------------------------------
   const initToolsEcosystemOrbit = () => {
     const stage = document.getElementById('tools-orbit-stage');
@@ -539,13 +541,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
     const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
-    let baseAngleOuter = 0;
-    let baseAngleMiddle = 1.0;
-    let baseAngleInner = 2.0;
+    let baseAngleInner = 0.2;
+    let baseAngleMiddle = 0.65;
+    let baseAngleOuter = 1.15;
 
-    const defaultSpeedOuter = 0.0012;
-    const defaultSpeedMiddle = 0.0017;
-    const defaultSpeedInner = 0.0023;
+    const defaultSpeedOuter = 0.0035;
+    const defaultSpeedMiddle = 0.0050;
+    const defaultSpeedInner = 0.0070;
 
     let targetSpeedOuter = defaultSpeedOuter;
     let targetSpeedMiddle = defaultSpeedMiddle;
@@ -560,20 +562,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeNode = null;
 
     const layoutOrbit = () => {
-      const stageWidth = stage.offsetWidth || window.innerWidth;
+      const stageWidth = stage.offsetWidth || 1100;
+      const stageHeight = stage.offsetHeight || 540;
+      const centerX = stageWidth / 2;
+      const centerY = stageHeight / 2;
       const isMobile = window.innerWidth < 768;
 
-      // 3 Concentric Orbit Radii with ample clearance from EMM Core
+      // 3 Concentric Elliptical Radii
       const rxOuter = isMobile
         ? Math.max(145, Math.min(195, (stageWidth - 20) / 2))
-        : Math.min(460, Math.max(280, (stageWidth - 80) / 2));
-      const ryOuter = isMobile ? rxOuter * 0.70 : Math.min(175, rxOuter * 0.38);
+        : Math.min(490, Math.max(300, (stageWidth - 80) / 2));
+      const ryOuter = isMobile ? rxOuter * 0.75 : Math.min(250, (stageHeight - 60) / 2);
 
-      const rxMiddle = rxOuter * 0.75;
+      const rxMiddle = rxOuter * 0.73;
       const ryMiddle = ryOuter * 0.74;
 
-      const rxInner = rxOuter * 0.49;
-      const ryInner = ryOuter * 0.48;
+      const rxInner = rxOuter * 0.47;
+      const ryInner = ryOuter * 0.46;
 
       // Smooth inertia & speed adjustments
       speedOuter += (targetSpeedOuter - speedOuter) * 0.08;
@@ -589,27 +594,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const totalAngleMiddle = baseAngleMiddle + manualOffset * 1.1;
       const totalAngleInner = baseAngleInner + manualOffset * 1.25;
 
-      const updateNodeGroup = (nodeList, rx, ry, baseAngle, baseZIndex) => {
+      const updateNodeGroup = (nodeList, radiusX, radiusY, baseAngle, baseZIndex) => {
         const total = nodeList.length;
         nodeList.forEach((node, idx) => {
           const angle = (idx / total) * Math.PI * 2 + baseAngle;
-          const x = Math.cos(angle) * rx;
-          const y = Math.sin(angle) * ry;
+          const x = centerX + Math.cos(angle) * radiusX;
+          const y = centerY + Math.sin(angle) * radiusY;
 
           // Depth metric: 0 at back, 1 at front
           const depth = (Math.sin(angle) + 1) / 2;
-          const scale = (0.86 + depth * 0.22).toFixed(3);
+          const scale = (0.88 + depth * 0.20).toFixed(3);
           const zIndex = Math.round(baseZIndex + depth * 20);
-          const opacity = (0.82 + depth * 0.18).toFixed(2);
 
           if (node === activeNode || node.classList.contains('is-active')) {
-            node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.22)`;
+            node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) scale(1.22)`;
             node.style.zIndex = '60';
             node.style.opacity = '1';
           } else {
-            node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
+            node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) scale(${scale})`;
             node.style.zIndex = zIndex;
-            node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : opacity;
+            node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : '1';
           }
         });
       };
@@ -623,11 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     requestAnimationFrame(layoutOrbit);
 
-    // Hover / touch handlers to slow orbit
+    // Hover slowdown
     stage.addEventListener('mouseenter', () => {
-      targetSpeedOuter = 0.0003;
-      targetSpeedMiddle = 0.0004;
-      targetSpeedInner = 0.0005;
+      targetSpeedOuter = 0.0006;
+      targetSpeedMiddle = 0.0008;
+      targetSpeedInner = 0.0010;
     });
 
     stage.addEventListener('mouseleave', () => {
@@ -725,9 +729,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let touchStartX = 0;
     stage.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
-      targetSpeedOuter = 0.0003;
-      targetSpeedMiddle = 0.0004;
-      targetSpeedInner = 0.0005;
+      targetSpeedOuter = 0.0006;
+      targetSpeedMiddle = 0.0008;
+      targetSpeedInner = 0.0010;
     }, { passive: true });
 
     stage.addEventListener('touchmove', (e) => {
@@ -767,54 +771,54 @@ document.addEventListener('DOMContentLoaded', () => {
       cloneCards = Array.from(track.querySelectorAll('.work-reel-card.is-clone'));
     }
 
-    let scrollPos = 0;
-    let targetSpeed = 0.85; // Continuous cinematic forward drift
-    let currentSpeed = 0.85;
+    let position = 0;
+    let speed = 1.1; // Smooth noticeable forward reel drift
+    let targetSpeed = 1.1;
     let isHovered = false;
     let isDragging = false;
     let dragStartX = 0;
-    let singleTrackWidth = 0;
+    let singleSetWidth = 0;
 
-    const updateMetrics = () => {
+    const updateSetWidth = () => {
       const visibleOriginals = Array.from(track.querySelectorAll('.work-reel-card:not(.is-clone)')).filter(c => c.style.display !== 'none');
       const visibleClones = Array.from(track.querySelectorAll('.work-reel-card.is-clone')).filter(c => c.style.display !== 'none');
 
       if (visibleOriginals.length > 0 && visibleClones.length > 0) {
-        singleTrackWidth = visibleClones[0].offsetLeft - visibleOriginals[0].offsetLeft;
+        singleSetWidth = visibleClones[0].offsetLeft - visibleOriginals[0].offsetLeft;
       }
-      if (!singleTrackWidth || singleTrackWidth <= 50) {
+      if (!singleSetWidth || singleSetWidth <= 50) {
         let total = 0;
         visibleOriginals.forEach(c => {
           total += (c.offsetWidth || 260) + 20; // card width + gap (20px)
         });
-        singleTrackWidth = total > 0 ? total : track.scrollWidth / 2;
+        singleSetWidth = total > 0 ? total : track.scrollWidth / 2;
       }
     };
 
-    updateMetrics();
-    window.addEventListener('load', updateMetrics);
-    window.addEventListener('resize', updateMetrics);
+    updateSetWidth();
+    window.addEventListener('load', updateSetWidth);
+    window.addEventListener('resize', updateSetWidth);
 
     // Continuous Infinite Marquee RAF Loop
     const renderLoop = () => {
-      if (!singleTrackWidth || singleTrackWidth <= 50) {
-        updateMetrics();
+      if (!singleSetWidth || singleSetWidth <= 50) {
+        updateSetWidth();
       }
 
-      if (singleTrackWidth > 50) {
+      if (singleSetWidth > 50) {
         if (!isHovered && !isDragging) {
-          currentSpeed += (targetSpeed - currentSpeed) * 0.1;
-          scrollPos += currentSpeed;
+          speed += (targetSpeed - speed) * 0.1;
+          position -= speed;
         }
 
         // Seamless wrap without jumping
-        if (scrollPos >= singleTrackWidth) {
-          scrollPos -= singleTrackWidth;
-        } else if (scrollPos < 0) {
-          scrollPos += singleTrackWidth;
+        if (position <= -singleSetWidth) {
+          position += singleSetWidth;
+        } else if (position > 0) {
+          position -= singleSetWidth;
         }
 
-        track.style.transform = `translate3d(${-scrollPos.toFixed(1)}px, 0, 0)`;
+        track.style.transform = `translate3d(${position.toFixed(2)}px, 0, 0)`;
       }
 
       requestAnimationFrame(renderLoop);
@@ -830,7 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stage.addEventListener('mouseleave', () => {
       isHovered = false;
-      targetSpeed = 0.85;
+      targetSpeed = 1.1;
       isDragging = false;
       stage.classList.remove('is-dragging');
     });
@@ -854,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDragging) return;
       const deltaX = e.pageX - dragStartX;
       dragStartX = e.pageX;
-      scrollPos -= deltaX * 1.1;
+      position += deltaX * 1.1;
     });
 
     // Mobile Touch Swipe
@@ -868,26 +872,26 @@ document.addEventListener('DOMContentLoaded', () => {
     stage.addEventListener('touchmove', (e) => {
       const deltaX = e.touches[0].clientX - touchX;
       touchX = e.touches[0].clientX;
-      scrollPos -= deltaX * 1.2;
+      position += deltaX * 1.2;
     }, { passive: true });
 
     stage.addEventListener('touchend', () => {
       setTimeout(() => {
         isHovered = false;
-        targetSpeed = 0.85;
-      }, 1200);
+        targetSpeed = 1.1;
+      }, 1000);
     });
 
     // Arrow Controls
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        scrollPos -= 320;
+        position += 320;
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        scrollPos += 320;
+        position -= 320;
       });
     }
 
@@ -948,13 +952,13 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        scrollPos = 0;
-        updateMetrics();
+        position = 0;
+        track.style.transform = 'translate3d(0, 0, 0)';
+        updateSetWidth();
       });
     });
   };
 
-  // --------------------------------------------------------------------------
   // 13. Dynamic Project Card
   // 13. Dynamic Project Card Deliverables Overlay Injector
   // --------------------------------------------------------------------------
@@ -1002,11 +1006,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initialize all modular controllers
-  initServicesEcosystem();
-  initProcessProgress();
-  initToolsEcosystemOrbit();
-  
-  initWorkReelsCarousel();
+  console.log('>>> DOMContentLoaded fired');
+  try { console.log('>>> Calling initServicesEcosystem'); initServicesEcosystem(); } catch(e) { console.error('Error in initServicesEcosystem:', e); }
+  try { console.log('>>> Calling initProcessProgress'); initProcessProgress(); } catch(e) { console.error('Error in initProcessProgress:', e); }
+  try { console.log('>>> Calling initToolsEcosystemOrbit'); initToolsEcosystemOrbit(); } catch(e) { console.error('Error in initToolsEcosystemOrbit:', e); }
+  try { console.log('>>> Calling initWorkReelsCarousel'); initWorkReelsCarousel(); } catch(e) { console.error('Error in initWorkReelsCarousel:', e); }
   initProjectCardHoverInfo();
   initFeaturedParallax();
 });

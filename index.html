@@ -678,9 +678,9 @@
         <!-- ======================================================================
          04 — Skills & Tools Section: Interactive Orbiting Ecosystem (Reference 1)
          ====================================================================== -->
-                <section id="skills" class="section tools-ecosystem-section">
+                    <section id="skills" class="section tools-ecosystem-section">
       <div class="container">
-        <!-- Section Header (Ref 1: "✦ TOOLS", "Tools That Power Our Creativity", "Explore Tools →") -->
+        <!-- Section Header (Ref 1) -->
         <div class="tools-ecosystem-header reveal-fade">
           <div class="tools-ecosystem-header__left">
             <div class="section-tag section-tag--pill">
@@ -710,35 +710,25 @@
           </div>
         </div>
 
-        <!-- Cosmic Orbital Arena (Multi-Track 3D Solar System) -->
+        <!-- Central Orbit Stage -->
         <div class="tools-orbit-stage-wrapper" id="tools-orbit-wrapper">
           <div class="tools-orbit-stage" id="tools-orbit-stage" role="region" aria-label="Creative Tech Ecosystem Orbit">
             
-            <!-- 3-Track Concentric SVG Orbits with Cyan Cosmic Depth -->
-            <svg class="tools-orbit-svg" viewBox="0 0 1000 480" fill="none" aria-hidden="true">
+            <!-- 3 Concentric Orbit Rings SVG -->
+            <svg class="tools-orbit-svg" viewBox="0 0 1100 560" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="orbitCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#0066ff" stop-opacity="0.6"/>
-                  <stop offset="50%" stop-color="#00d2ff" stop-opacity="0.9"/>
-                  <stop offset="100%" stop-color="#0066ff" stop-opacity="0.4"/>
+                  <stop offset="0%" stop-color="#0066ff" stop-opacity="0.4"/>
+                  <stop offset="50%" stop-color="#00d2ff" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#0066ff" stop-opacity="0.3"/>
                 </linearGradient>
-                <filter id="orbitGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
               </defs>
-              <!-- Ring 3 Outer Orbit Track -->
-              <ellipse cx="500" cy="240" rx="450" ry="175" stroke="url(#orbitCyanGrad)" stroke-width="1.5" stroke-dasharray="5 7" filter="url(#orbitGlow)" />
-              <!-- Ring 2 Middle Orbit Track -->
-              <ellipse cx="500" cy="240" rx="340" ry="130" stroke="rgba(0, 210, 255, 0.45)" stroke-width="1.3" stroke-dasharray="4 6" />
-              <!-- Ring 1 Inner Orbit Track -->
-              <ellipse cx="500" cy="240" rx="220" ry="85" stroke="rgba(0, 180, 255, 0.35)" stroke-width="1.2" stroke-dasharray="3 5" />
+              <ellipse cx="550" cy="280" rx="490" ry="250" stroke="url(#orbitCyanGrad)" stroke-width="1.5" stroke-dasharray="6 8" />
+              <ellipse cx="550" cy="280" rx="360" ry="185" stroke="rgba(0, 210, 255, 0.45)" stroke-width="1.3" stroke-dasharray="5 7" />
+              <ellipse cx="550" cy="280" rx="230" ry="115" stroke="rgba(0, 180, 255, 0.35)" stroke-width="1.2" stroke-dasharray="4 6" />
             </svg>
 
-            <!-- Center Glowing EMM Core Sphere -->
+            <!-- Center EMM CORE Sphere -->
             <div class="emm-orbit-core" id="emm-orbit-core" tabindex="0" role="button" aria-label="EMM Creative Stack Core">
               <div class="emm-core-outer-halo"></div>
               <div class="emm-core-rotating-ring"></div>
@@ -749,213 +739,201 @@
               <div class="emm-core-rim-glow"></div>
             </div>
 
-            <!-- 21 Distinct Visible Tool Nodes (Each with local verified brand icon) -->
-            <!-- 1. Figma (INNER RING) -->
+            <!-- 21 Distinct Visible Tool Nodes -->
+            <!-- 1. Figma (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Figma" data-category="UI/UX & Systems" data-role="Conversion landing page UI, mobile prototypes & design systems" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/figma.png" alt="Figma" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/figma.png" alt="Figma" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Figma</span>
+              <span class="tool-name">Figma</span>
             </div>
 
-            <!-- 2. Canva (INNER RING) -->
+            <!-- 2. Canva (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Canva" data-category="Visual Collateral" data-role="Rapid omnichannel marketing collateral & brand assets" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/canva.svg" alt="Canva" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/canva.svg" alt="Canva" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Canva</span>
+              <span class="tool-name">Canva</span>
             </div>
 
-            <!-- 3. Shopify (INNER RING) -->
+            <!-- 3. Shopify (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Shopify" data-category="E-Commerce" data-role="Conversion storefront architecture & checkout optimization" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/shopify.svg" alt="Shopify" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/shopify.svg" alt="Shopify" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Shopify</span>
+              <span class="tool-name">Shopify</span>
             </div>
 
-            <!-- 4. Notion (INNER RING) -->
+            <!-- 4. Notion (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Notion" data-category="Production Hub" data-role="Agile production sprints, client asset portals & content calendars" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/notion.svg" alt="Notion" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/notion.svg" alt="Notion" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Notion</span>
+              <span class="tool-name">Notion</span>
             </div>
 
-            <!-- 5. Make (INNER RING) -->
+            <!-- 5. Make (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Make" data-category="Automation" data-role="Automated cross-platform content syndication & webhook pipelines" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/make.svg" alt="Make" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/make.svg" alt="Make" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Make</span>
+              <span class="tool-name">Make</span>
             </div>
 
-            <!-- 6. Blender (INNER RING) -->
+            <!-- 6. Blender (INNER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Blender" data-category="3D & VFX" data-role="Photorealistic 3D product modeling & particle simulations" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/blender.svg" alt="Blender" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/blender.svg" alt="Blender" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Blender</span>
+              <span class="tool-name">Blender</span>
             </div>
 
-            <!-- 7. Adobe Premiere Pro (MIDDLE RING) -->
-            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Adobe Premiere Pro" data-category="Video Editing" data-role="High-retention social reel editing, multicam cuts & sound pacing" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/premiere-pro.png" alt="Adobe Premiere Pro" class="tool-icon-img" loading="eager" />
+            <!-- 7. Premiere Pro (MIDDLE ORBIT) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Premiere Pro" data-category="Video Editing" data-role="High-retention social reel editing, multicam cuts & sound pacing" tabindex="0">
+              <div class="tool-logo">
+                <img src="assets/icons/premiere-pro.png" alt="Premiere Pro" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Adobe Premiere Pro</span>
+              <span class="tool-name">Premiere Pro</span>
             </div>
 
-            <!-- 8. Adobe Photoshop (MIDDLE RING) -->
-            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Adobe Photoshop" data-category="Graphic Design" data-role="High-converting ad creative design, retouching & hero visuals" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/adobe-photoshop.png" alt="Adobe Photoshop" class="tool-icon-img" loading="eager" />
+            <!-- 8. Photoshop (MIDDLE ORBIT) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Photoshop" data-category="Graphic Design" data-role="High-converting ad creative design, retouching & hero visuals" tabindex="0">
+              <div class="tool-logo">
+                <img src="assets/icons/adobe-photoshop.png" alt="Photoshop" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Adobe Photoshop</span>
+              <span class="tool-name">Photoshop</span>
             </div>
 
-            <!-- 9. DaVinci Resolve (MIDDLE RING) -->
+            <!-- 9. DaVinci Resolve (MIDDLE ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="DaVinci Resolve" data-category="Color & Sound" data-role="Color grading, cinematic tonal balancing & Fairlight audio mastering" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/davinci-resolve.svg" alt="DaVinci Resolve" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/davinci-resolve.svg" alt="DaVinci Resolve" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">DaVinci Resolve</span>
+              <span class="tool-name">DaVinci Resolve</span>
             </div>
 
-            <!-- 10. CapCut (MIDDLE RING) -->
+            <!-- 10. CapCut (MIDDLE ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="CapCut" data-category="Short-Form" data-role="Fast-turnaround velocity edits, trending audio & viral cuts" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/capcut.png" alt="CapCut" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/capcut.png" alt="CapCut" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">CapCut</span>
+              <span class="tool-name">CapCut</span>
             </div>
 
-            <!-- 11. Meta Ads (MIDDLE RING) -->
+            <!-- 11. Meta Ads (MIDDLE ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Meta Ads" data-category="Paid Social" data-role="Performance scale campaigns, CBO & creative testing matrices" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/meta.png" alt="Meta Ads" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/meta.png" alt="Meta Ads" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Meta Ads</span>
+              <span class="tool-name">Meta Ads</span>
             </div>
 
-            <!-- 12. Google Ads (MIDDLE RING) -->
+            <!-- 12. Google Ads (MIDDLE ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Google Ads" data-category="Search & PPC" data-role="High-intent search, Performance Max & YouTube funnels" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/google-ads.svg" alt="Google Ads" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/google-ads.svg" alt="Google Ads" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Google Ads</span>
+              <span class="tool-name">Google Ads</span>
             </div>
 
-            <!-- 13. ChatGPT (MIDDLE RING) -->
+            <!-- 13. ChatGPT (MIDDLE ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="ChatGPT" data-category="AI Strategy" data-role="Hook ideation, consumer persona research & ad scriptwriting" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/chatgpt.svg" alt="ChatGPT" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/chatgpt.svg" alt="ChatGPT" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">ChatGPT</span>
+              <span class="tool-name">ChatGPT</span>
             </div>
 
-            <!-- 14. Adobe After Effects (OUTER RING) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Adobe After Effects" data-category="Motion Graphics" data-role="Kinetic typography, 3D motion transitions & visual effects" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/after-effects.svg" alt="Adobe After Effects" class="tool-icon-img" loading="eager" />
+            <!-- 14. After Effects (OUTER ORBIT) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="After Effects" data-category="Motion Graphics" data-role="Kinetic typography, 3D motion transitions & visual effects" tabindex="0">
+              <div class="tool-logo">
+                <img src="assets/icons/after-effects.svg" alt="After Effects" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Adobe After Effects</span>
+              <span class="tool-name">After Effects</span>
             </div>
 
-            <!-- 15. Adobe Lightroom (OUTER RING) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Adobe Lightroom" data-category="Photo Finishing" data-role="Commercial color grading, batch editorial treatments & raw styling" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/lightroom.svg" alt="Adobe Lightroom" class="tool-icon-img" loading="eager" />
+            <!-- 15. Lightroom (OUTER ORBIT) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Lightroom" data-category="Photo Finishing" data-role="Commercial color grading, batch editorial treatments & raw styling" tabindex="0">
+              <div class="tool-logo">
+                <img src="assets/icons/lightroom.svg" alt="Lightroom" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Adobe Lightroom</span>
+              <span class="tool-name">Lightroom</span>
             </div>
 
-            <!-- 16. Runway (OUTER RING) -->
+            <!-- 16. Runway (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Runway" data-category="Gen-AI Video" data-role="Generative video extensions, camera control & style synthesis" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/runway.svg" alt="Runway" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/runway.svg" alt="Runway" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Runway</span>
+              <span class="tool-name">Runway</span>
             </div>
 
-            <!-- 17. Midjourney (OUTER RING) -->
+            <!-- 17. Midjourney (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Midjourney" data-category="Generative Art" data-role="Conceptual visual synthesis & photorealistic moodboarding" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/midjourney.svg" alt="Midjourney" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/midjourney.svg" alt="Midjourney" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Midjourney</span>
+              <span class="tool-name">Midjourney</span>
             </div>
 
-            <!-- 18. Google Workspace (OUTER RING) -->
+            <!-- 18. Google Workspace (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Google Workspace" data-category="Operations" data-role="Cloud asset workflows, shared drives & client collaboration" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/google-workspace.png" alt="Google Workspace" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/google-workspace.png" alt="Google Workspace" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Google Workspace</span>
+              <span class="tool-name">Google Workspace</span>
             </div>
 
-            <!-- 19. WhatsApp Business (OUTER RING) -->
+            <!-- 19. WhatsApp Business (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="WhatsApp Business" data-category="Direct CRM" data-role="Direct VIP client communications & fast feedback pipelines" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/whatsapp.svg" alt="WhatsApp Business" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/whatsapp.svg" alt="WhatsApp Business" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">WhatsApp Business</span>
+              <span class="tool-name">WhatsApp Business</span>
             </div>
 
-            <!-- 20. Google Analytics (OUTER RING) -->
+            <!-- 20. Google Analytics (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Google Analytics" data-category="Data & CRO" data-role="Omnichannel event tracking, funnel drop-off & attribution modeling" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/google-analytics.svg" alt="Google Analytics" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/google-analytics.svg" alt="Google Analytics" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Google Analytics</span>
+              <span class="tool-name">Google Analytics</span>
             </div>
 
-            <!-- 21. n8n (OUTER RING) -->
+            <!-- 21. n8n (OUTER ORBIT) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="n8n" data-category="Backend Automations" data-role="Custom serverless data ETL, API syncs & lead capture routing" tabindex="0">
-              <div class="tool-node-circle">
-                <img src="assets/icons/n8n.svg" alt="n8n" class="tool-icon-img" loading="eager" />
+              <div class="tool-logo">
+                <img src="assets/icons/n8n.svg" alt="n8n" class="tool-logo-img" loading="eager" />
               </div>
-              <span class="tool-node-label">n8n</span>
+              <span class="tool-name">n8n</span>
             </div>
 
           </div>
         </div>
 
-        <!-- Interactive Exploration Tooltip -->
+        <!-- Tooltip -->
         <div class="tools-orbit-tooltip reveal-fade" id="tools-orbit-tooltip" role="status" aria-live="polite">
           <span class="tools-tooltip-icon">✦</span>
           <span class="tools-tooltip-text" id="tools-tooltip-text">Hover or tap any tool to inspect agency capability</span>
         </div>
 
-        <!-- 4-Pillar Glass Banner (Ref 1 Bottom Ribbon) -->
+        <!-- 4-Pillar Glass Banner -->
         <div class="tools-ecosystem-ribbon reveal-fade">
           <div class="tools-ribbon-item">
             <div class="tools-ribbon-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-            <div class="tools-ribbon-text">
-              <strong>20+</strong>
-              <span>Creative Tools</span>
-            </div>
+            <div class="tools-ribbon-text"><strong>21</strong><span>Creative Tools</span></div>
           </div>
           <div class="tools-ribbon-item">
             <div class="tools-ribbon-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
-            <div class="tools-ribbon-text">
-              <strong>End-to-End</strong>
-              <span>Creative Workflow</span>
-            </div>
+            <div class="tools-ribbon-text"><strong>End-to-End</strong><span>Creative Workflow</span></div>
           </div>
           <div class="tools-ribbon-item">
             <div class="tools-ribbon-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <div class="tools-ribbon-text">
-              <strong>Better Tools</strong>
-              <span>Bigger Possibilities</span>
-            </div>
+            <div class="tools-ribbon-text"><strong>Better Tools</strong><span>Bigger Possibilities</span></div>
           </div>
           <div class="tools-ribbon-item">
             <div class="tools-ribbon-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-            <div class="tools-ribbon-text">
-              <strong>Ideas to Impact</strong>
-              <span>With the Right Stack</span>
-            </div>
+            <div class="tools-ribbon-text"><strong>Ideas to Impact</strong><span>With the Right Stack</span></div>
           </div>
         </div>
       </div>
