@@ -539,39 +539,76 @@ const initApp = () => {
     const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
     const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
-    // Optimal staggering to ensure >76px minimum separation between all 21 tools
-    let baseAngleInner = 2.65;
-    let baseAngleMiddle = 4.10;
-    let baseAngleOuter = 0.05;
+    // Starting angles ensuring initial non-overlapping layout (>76px clearance)
+    let innerAngle = 2.65;
+    let middleAngle = 4.10;
+    let outerAngle = 0.05;
 
-    const defaultSpeedOuter = 0.0032;
-    const defaultSpeedMiddle = 0.0048;
-    const defaultSpeedInner = 0.0065;
+    // Speeds requested by user:
+    // Inner: 0.006 rad/frame (~17s per revolution)
+    // Middle: 0.0045 rad/frame (~23s per revolution)
+    // Outer: 0.003 rad/frame (~35s per revolution)
+    const defaultSpeedInner = 0.006;
+    const defaultSpeedMiddle = 0.0045;
+    const defaultSpeedOuter = 0.003;
 
-    let targetSpeedOuter = defaultSpeedOuter;
-    let targetSpeedMiddle = defaultSpeedMiddle;
     let targetSpeedInner = defaultSpeedInner;
+    let targetSpeedMiddle = defaultSpeedMiddle;
+    let targetSpeedOuter = defaultSpeedOuter;
 
-    let speedOuter = defaultSpeedOuter;
-    let speedMiddle = defaultSpeedMiddle;
-    let speedInner = defaultSpeedInner;
+    let currentSpeedInner = defaultSpeedInner;
+    let currentSpeedMiddle = defaultSpeedMiddle;
+    let currentSpeedOuter = defaultSpeedOuter;
 
-    let manualOffset = 0;
-    let targetManualOffset = 0;
     let activeNode = null;
 
-    // STEP 2: Continuous orbit animation enabled
-    const ENABLE_ORBIT_ANIMATION = true;
+    const updateNodeGroup = (nodeList, radiusX, radiusY, baseAngle, centerX, centerY, baseZIndex) => {
+      const total = nodeList.length;
+      for (let idx = 0; idx < total; idx++) {
+        const node = nodeList[idx];
+        const angle = (idx / total) * Math.PI * 2 + baseAngle;
+        const x = centerX + Math.cos(angle) * radiusX;
+        const y = centerY + Math.sin(angle) * radiusY;
 
-    const layoutOrbit = () => {
+        // Directly update style.left and style.top
+        node.style.left = `${x.toFixed(1)}px`;
+        node.style.top = `${y.toFixed(1)}px`;
+
+        // Depth metric: 0 at back, 1 at front
+        const depth = (Math.sin(angle) + 1) / 2;
+        const zIndex = Math.round(baseZIndex + depth * 20);
+
+        // Keep transform: translate(-50%, -50%) so logos are ALWAYS upright and never rotate with orbit angle
+        if (node === activeNode || node.classList.contains('is-active')) {
+          node.style.transform = 'translate(-50%, -50%) scale(1.15)';
+          node.style.zIndex = '60';
+          node.style.opacity = '1';
+        } else {
+          node.style.transform = 'translate(-50%, -50%)';
+          node.style.zIndex = zIndex;
+          node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : '1';
+        }
+      }
+    };
+
+    const tick = () => {
+      // Smoothly interpolate speeds towards targets
+      currentSpeedInner += (targetSpeedInner - currentSpeedInner) * 0.1;
+      currentSpeedMiddle += (targetSpeedMiddle - currentSpeedMiddle) * 0.1;
+      currentSpeedOuter += (targetSpeedOuter - currentSpeedOuter) * 0.1;
+
+      // Increment angles each frame
+      innerAngle += currentSpeedInner;
+      middleAngle += currentSpeedMiddle;
+      outerAngle += currentSpeedOuter;
+
       const stageWidth = stage.offsetWidth || 1100;
       const stageHeight = stage.offsetHeight || 560;
       const centerX = stageWidth / 2;
       const centerY = stageHeight / 2;
       const isMobile = window.innerWidth < 768;
 
-      // Compact, well-filled elliptical radii matching Reference 2:
-      // Inner: ~210x105, Middle: ~325x160, Outer: ~430x210
+      // Responsive elliptical radii matching SVG tracks and stage
       const rxOuter = isMobile
         ? Math.max(140, Math.min(185, (stageWidth - 20) / 2))
         : Math.min(430, Math.max(280, (stageWidth - 80) / 2));
@@ -583,93 +620,36 @@ const initApp = () => {
       const rxInner = rxOuter * 0.49;
       const ryInner = ryOuter * 0.50;
 
-      // Smooth inertia & speed adjustments
-      speedOuter += (targetSpeedOuter - speedOuter) * 0.08;
-      speedMiddle += (targetSpeedMiddle - speedMiddle) * 0.08;
-      speedInner += (targetSpeedInner - speedInner) * 0.08;
-      manualOffset += (targetManualOffset - manualOffset) * 0.12;
+      updateNodeGroup(outerNodes, rxOuter, ryOuter, outerAngle, centerX, centerY, 10);
+      updateNodeGroup(middleNodes, rxMiddle, ryMiddle, middleAngle, centerX, centerY, 16);
+      updateNodeGroup(innerNodes, rxInner, ryInner, innerAngle, centerX, centerY, 22);
 
-      baseAngleOuter += speedOuter;
-      baseAngleMiddle += speedMiddle;
-      baseAngleInner += speedInner;
-
-      const totalAngleOuter = baseAngleOuter + manualOffset;
-      const totalAngleMiddle = baseAngleMiddle + manualOffset * 1.1;
-      const totalAngleInner = baseAngleInner + manualOffset * 1.25;
-
-      const updateNodeGroup = (nodeList, radiusX, radiusY, baseAngle, baseZIndex) => {
-        const total = nodeList.length;
-        nodeList.forEach((node, idx) => {
-          const angle = (idx / total) * Math.PI * 2 + baseAngle;
-          const x = centerX + Math.cos(angle) * radiusX;
-          const y = centerY + Math.sin(angle) * radiusY;
-
-          // Direct absolute coordinates
-          node.style.left = `${x.toFixed(1)}px`;
-          node.style.top = `${y.toFixed(1)}px`;
-
-          // Depth metric: 0 at back, 1 at front
-          const depth = (Math.sin(angle) + 1) / 2;
-          const scale = (0.92 + depth * 0.16).toFixed(3);
-          const zIndex = Math.round(baseZIndex + depth * 20);
-
-          if (node === activeNode || node.classList.contains('is-active')) {
-            node.style.transform = 'translate(-50%, -50%) scale(1.18)';
-            node.style.zIndex = '60';
-            node.style.opacity = '1';
-          } else {
-            node.style.transform = `translate(-50%, -50%) scale(${scale})`;
-            node.style.zIndex = zIndex;
-            node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : '1';
-          }
-        });
-      };
-
-      updateNodeGroup(outerNodes, rxOuter, ryOuter, totalAngleOuter, 10);
-      updateNodeGroup(middleNodes, rxMiddle, ryMiddle, totalAngleMiddle, 16);
-      updateNodeGroup(innerNodes, rxInner, ryInner, totalAngleInner, 22);
-
-      if (ENABLE_ORBIT_ANIMATION) {
-        requestAnimationFrame(layoutOrbit);
-      }
+      requestAnimationFrame(tick);
     };
 
-    layoutOrbit();
-    if (ENABLE_ORBIT_ANIMATION) {
-      requestAnimationFrame(layoutOrbit);
-    }
-
-    // Hover slowdown
-    stage.addEventListener('mouseenter', () => {
-      targetSpeedOuter = 0.0006;
-      targetSpeedMiddle = 0.0008;
-      targetSpeedInner = 0.0010;
-    });
-
-    stage.addEventListener('mouseleave', () => {
-      targetSpeedOuter = defaultSpeedOuter;
-      targetSpeedMiddle = defaultSpeedMiddle;
-      targetSpeedInner = defaultSpeedInner;
-      activeNode = null;
-      nodes.forEach(n => {
-        n.classList.remove('is-active');
-        n.classList.remove('is-dimmed');
-      });
-      if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
-      if (tooltip) {
-        tooltip.style.borderColor = '';
-        tooltip.style.boxShadow = '';
-      }
-    });
+    // Kick off animation loop immediately
+    requestAnimationFrame(tick);
 
     // Tool node hover & focus activations
     nodes.forEach(node => {
       const toolName = node.getAttribute('data-tool') || '';
       const category = node.getAttribute('data-category') || '';
       const role = node.getAttribute('data-role') || '';
+      const orbitRing = node.getAttribute('data-orbit') || '';
 
       const activateTool = () => {
         activeNode = node;
+
+        // Smoothly slow down ONLY the orbit ring of the hovered tool
+        // Do NOT stop the entire ecosystem when hovering one tool
+        if (orbitRing === 'inner') {
+          targetSpeedInner = 0.0015;
+        } else if (orbitRing === 'middle') {
+          targetSpeedMiddle = 0.0011;
+        } else if (orbitRing === 'outer') {
+          targetSpeedOuter = 0.0008;
+        }
+
         nodes.forEach(n => {
           if (n === node) {
             n.classList.add('is-active');
@@ -689,8 +669,33 @@ const initApp = () => {
         }
       };
 
+      const deactivateTool = () => {
+        if (activeNode === node) {
+          activeNode = null;
+          // Smoothly return ALL orbits to normal speed
+          targetSpeedInner = defaultSpeedInner;
+          targetSpeedMiddle = defaultSpeedMiddle;
+          targetSpeedOuter = defaultSpeedOuter;
+
+          nodes.forEach(n => {
+            n.classList.remove('is-active');
+            n.classList.remove('is-dimmed');
+          });
+
+          if (tooltipText) {
+            tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
+          }
+          if (tooltip) {
+            tooltip.style.borderColor = '';
+            tooltip.style.boxShadow = '';
+          }
+        }
+      };
+
       node.addEventListener('mouseenter', activateTool);
+      node.addEventListener('mouseleave', deactivateTool);
       node.addEventListener('focus', activateTool);
+      node.addEventListener('blur', deactivateTool);
       node.addEventListener('click', (e) => {
         e.stopPropagation();
         activateTool();
@@ -708,49 +713,35 @@ const initApp = () => {
           tooltip.style.boxShadow = '0 0 30px rgba(0, 140, 255, 0.5)';
         }
       });
+      emmCore.addEventListener('mouseleave', () => {
+        if (!activeNode) {
+          if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
+          if (tooltip) {
+            tooltip.style.borderColor = '';
+            tooltip.style.boxShadow = '';
+          }
+        }
+      });
     }
 
-    // Drag / Touch to Spin with Inertia
-    let isDown = false;
-    let startX = 0;
-
-    stage.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX;
-      targetSpeedOuter = 0;
-      targetSpeedMiddle = 0;
-      targetSpeedInner = 0;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDown) {
-        isDown = false;
-        targetSpeedOuter = defaultSpeedOuter;
-        targetSpeedMiddle = defaultSpeedMiddle;
+    // Dismiss active node when clicking outside
+    stage.addEventListener('click', (e) => {
+      if (!e.target.closest('.tool-orbit-node') && !e.target.closest('#emm-orbit-core')) {
+        activeNode = null;
         targetSpeedInner = defaultSpeedInner;
+        targetSpeedMiddle = defaultSpeedMiddle;
+        targetSpeedOuter = defaultSpeedOuter;
+        nodes.forEach(n => {
+          n.classList.remove('is-active');
+          n.classList.remove('is-dimmed');
+        });
+        if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
+        if (tooltip) {
+          tooltip.style.borderColor = '';
+          tooltip.style.boxShadow = '';
+        }
       }
     });
-
-    stage.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      const deltaX = e.pageX - startX;
-      startX = e.pageX;
-      targetManualOffset += deltaX * 0.005;
-    });
-
-    let touchStartX = 0;
-    stage.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      targetSpeedOuter = 0.0006;
-      targetSpeedMiddle = 0.0008;
-      targetSpeedInner = 0.0010;
-    }, { passive: true });
-
-    stage.addEventListener('touchmove', (e) => {
-      const deltaX = e.touches[0].clientX - touchStartX;
-      touchStartX = e.touches[0].clientX;
-      targetManualOffset += deltaX * 0.007;
-    }, { passive: true });
   };
 
   // --------------------------------------------------------------------------
