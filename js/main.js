@@ -526,89 +526,71 @@ const initApp = () => {
   // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
   // --------------------------------------------------------------------------
   const initToolsEcosystemOrbit = () => {
+    if (window.__toolsOrbitStarted) return;
     const stage = document.getElementById('tools-orbit-stage');
-    if (!stage) return;
+    if (!stage) {
+      console.warn('[TOOLS ORBIT] Stage #tools-orbit-stage not found');
+      return;
+    }
     const nodes = stage.querySelectorAll('.tool-orbit-node');
-    const tooltip = document.getElementById('tools-orbit-tooltip');
-    const tooltipText = document.getElementById('tools-tooltip-text');
-    const emmCore = document.getElementById('emm-orbit-core');
+    if (!nodes || nodes.length === 0) {
+      console.warn('[TOOLS ORBIT] No .tool-orbit-node elements found');
+      return;
+    }
 
-    if (nodes.length === 0) return;
+    window.__toolsOrbitStarted = true;
 
     const innerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'inner');
     const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
     const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
-    // Starting angles ensuring initial non-overlapping layout (>76px clearance)
+    console.log('[TOOLS ORBIT] INIT — Stage:', stage.clientWidth, 'x', stage.clientHeight, 'Nodes count:', nodes.length);
+
+    // Initial base angles maintaining calibrated non-overlapping distribution
     let innerAngle = 2.65;
     let middleAngle = 4.10;
     let outerAngle = 0.05;
 
-    // Speeds requested by user:
-    // Inner: 0.006 rad/frame (~17s per revolution)
-    // Middle: 0.0045 rad/frame (~23s per revolution)
-    // Outer: 0.003 rad/frame (~35s per revolution)
-    const defaultSpeedInner = 0.006;
-    const defaultSpeedMiddle = 0.0045;
-    const defaultSpeedOuter = 0.003;
+    // Speeds for obvious motion verification:
+    const SPEED_INNER = 0.012;
+    const SPEED_MIDDLE = 0.009;
+    const SPEED_OUTER = 0.006;
 
-    let targetSpeedInner = defaultSpeedInner;
-    let targetSpeedMiddle = defaultSpeedMiddle;
-    let targetSpeedOuter = defaultSpeedOuter;
+    let frameCount = 0;
 
-    let currentSpeedInner = defaultSpeedInner;
-    let currentSpeedMiddle = defaultSpeedMiddle;
-    let currentSpeedOuter = defaultSpeedOuter;
+    function updateOrbit(nodeList, baseAngle, radiusX, radiusY) {
+      const stageWidth = stage.clientWidth || stage.offsetWidth || 1100;
+      const stageHeight = stage.clientHeight || stage.offsetHeight || 560;
+      const centerX = stageWidth / 2;
+      const centerY = stageHeight / 2;
 
-    let activeNode = null;
-
-    const updateNodeGroup = (nodeList, radiusX, radiusY, baseAngle, centerX, centerY, baseZIndex) => {
       const total = nodeList.length;
-      for (let idx = 0; idx < total; idx++) {
-        const node = nodeList[idx];
-        const angle = (idx / total) * Math.PI * 2 + baseAngle;
+      for (let index = 0; index < total; index++) {
+        const node = nodeList[index];
+        const angle = baseAngle + (index / total) * Math.PI * 2;
         const x = centerX + Math.cos(angle) * radiusX;
         const y = centerY + Math.sin(angle) * radiusY;
 
-        // Directly update style.left and style.top
         node.style.left = `${x.toFixed(1)}px`;
         node.style.top = `${y.toFixed(1)}px`;
-
-        // Depth metric: 0 at back, 1 at front
-        const depth = (Math.sin(angle) + 1) / 2;
-        const zIndex = Math.round(baseZIndex + depth * 20);
-
-        // Keep transform: translate(-50%, -50%) so logos are ALWAYS upright and never rotate with orbit angle
-        if (node === activeNode || node.classList.contains('is-active')) {
-          node.style.transform = 'translate(-50%, -50%) scale(1.15)';
-          node.style.zIndex = '60';
-          node.style.opacity = '1';
-        } else {
-          node.style.transform = 'translate(-50%, -50%)';
-          node.style.zIndex = zIndex;
-          node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : '1';
-        }
+        node.style.transform = 'translate(-50%, -50%)';
       }
-    };
+    }
 
-    const tick = () => {
-      // Smoothly interpolate speeds towards targets
-      currentSpeedInner += (targetSpeedInner - currentSpeedInner) * 0.1;
-      currentSpeedMiddle += (targetSpeedMiddle - currentSpeedMiddle) * 0.1;
-      currentSpeedOuter += (targetSpeedOuter - currentSpeedOuter) * 0.1;
+    function animateToolsOrbit() {
+      innerAngle += SPEED_INNER;
+      middleAngle += SPEED_MIDDLE;
+      outerAngle += SPEED_OUTER;
 
-      // Increment angles each frame
-      innerAngle += currentSpeedInner;
-      middleAngle += currentSpeedMiddle;
-      outerAngle += currentSpeedOuter;
+      if (frameCount <= 5 || frameCount % 60 === 0) {
+        console.log('[TOOLS ORBIT] Frame', frameCount, 'angles:', innerAngle.toFixed(3), middleAngle.toFixed(3), outerAngle.toFixed(3));
+      }
+      frameCount++;
 
-      const stageWidth = stage.offsetWidth || 1100;
-      const stageHeight = stage.offsetHeight || 560;
-      const centerX = stageWidth / 2;
-      const centerY = stageHeight / 2;
+      const stageWidth = stage.clientWidth || stage.offsetWidth || 1100;
+      const stageHeight = stage.clientHeight || stage.offsetHeight || 560;
       const isMobile = window.innerWidth < 768;
 
-      // Responsive elliptical radii matching SVG tracks and stage
       const rxOuter = isMobile
         ? Math.max(140, Math.min(185, (stageWidth - 20) / 2))
         : Math.min(430, Math.max(280, (stageWidth - 80) / 2));
@@ -620,89 +602,40 @@ const initApp = () => {
       const rxInner = rxOuter * 0.49;
       const ryInner = ryOuter * 0.50;
 
-      updateNodeGroup(outerNodes, rxOuter, ryOuter, outerAngle, centerX, centerY, 10);
-      updateNodeGroup(middleNodes, rxMiddle, ryMiddle, middleAngle, centerX, centerY, 16);
-      updateNodeGroup(innerNodes, rxInner, ryInner, innerAngle, centerX, centerY, 22);
+      updateOrbit(innerNodes, innerAngle, rxInner, ryInner);
+      updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle);
+      updateOrbit(outerNodes, outerAngle, rxOuter, ryOuter);
 
-      requestAnimationFrame(tick);
-    };
+      requestAnimationFrame(animateToolsOrbit);
+    }
 
-    // Kick off animation loop immediately
-    requestAnimationFrame(tick);
+    requestAnimationFrame(animateToolsOrbit);
 
-    // Tool node hover & focus activations
+    // Tooltip inspection on click/hover without affecting animation
+    const tooltipText = document.getElementById('tools-tooltip-text');
+    const tooltip = document.getElementById('tools-orbit-tooltip');
+    const emmCore = document.getElementById('emm-orbit-core');
+
     nodes.forEach(node => {
       const toolName = node.getAttribute('data-tool') || '';
       const category = node.getAttribute('data-category') || '';
       const role = node.getAttribute('data-role') || '';
-      const orbitRing = node.getAttribute('data-orbit') || '';
 
-      const activateTool = () => {
-        activeNode = node;
-
-        // Smoothly slow down ONLY the orbit ring of the hovered tool
-        // Do NOT stop the entire ecosystem when hovering one tool
-        if (orbitRing === 'inner') {
-          targetSpeedInner = 0.0015;
-        } else if (orbitRing === 'middle') {
-          targetSpeedMiddle = 0.0011;
-        } else if (orbitRing === 'outer') {
-          targetSpeedOuter = 0.0008;
-        }
-
-        nodes.forEach(n => {
-          if (n === node) {
-            n.classList.add('is-active');
-            n.classList.remove('is-dimmed');
-          } else {
-            n.classList.remove('is-active');
-            n.classList.add('is-dimmed');
-          }
-        });
-
-        if (tooltipText) {
-          tooltipText.innerHTML = `<strong>${toolName}</strong> (${category}) — ${role}`;
-        }
+      const showInfo = () => {
+        if (tooltipText) tooltipText.innerHTML = `<strong>${toolName}</strong> (${category}) — ${role}`;
         if (tooltip) {
           tooltip.style.borderColor = '#00d2ff';
           tooltip.style.boxShadow = '0 0 25px rgba(0, 180, 255, 0.4)';
         }
       };
 
-      const deactivateTool = () => {
-        if (activeNode === node) {
-          activeNode = null;
-          // Smoothly return ALL orbits to normal speed
-          targetSpeedInner = defaultSpeedInner;
-          targetSpeedMiddle = defaultSpeedMiddle;
-          targetSpeedOuter = defaultSpeedOuter;
-
-          nodes.forEach(n => {
-            n.classList.remove('is-active');
-            n.classList.remove('is-dimmed');
-          });
-
-          if (tooltipText) {
-            tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
-          }
-          if (tooltip) {
-            tooltip.style.borderColor = '';
-            tooltip.style.boxShadow = '';
-          }
-        }
-      };
-
-      node.addEventListener('mouseenter', activateTool);
-      node.addEventListener('mouseleave', deactivateTool);
-      node.addEventListener('focus', activateTool);
-      node.addEventListener('blur', deactivateTool);
+      node.addEventListener('mouseenter', showInfo);
       node.addEventListener('click', (e) => {
         e.stopPropagation();
-        activateTool();
+        showInfo();
       });
     });
 
-    // Center Core interaction
     if (emmCore) {
       emmCore.addEventListener('mouseenter', () => {
         if (tooltipText) {
@@ -713,35 +646,7 @@ const initApp = () => {
           tooltip.style.boxShadow = '0 0 30px rgba(0, 140, 255, 0.5)';
         }
       });
-      emmCore.addEventListener('mouseleave', () => {
-        if (!activeNode) {
-          if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
-          if (tooltip) {
-            tooltip.style.borderColor = '';
-            tooltip.style.boxShadow = '';
-          }
-        }
-      });
     }
-
-    // Dismiss active node when clicking outside
-    stage.addEventListener('click', (e) => {
-      if (!e.target.closest('.tool-orbit-node') && !e.target.closest('#emm-orbit-core')) {
-        activeNode = null;
-        targetSpeedInner = defaultSpeedInner;
-        targetSpeedMiddle = defaultSpeedMiddle;
-        targetSpeedOuter = defaultSpeedOuter;
-        nodes.forEach(n => {
-          n.classList.remove('is-active');
-          n.classList.remove('is-dimmed');
-        });
-        if (tooltipText) tooltipText.textContent = 'Hover or tap any tool to inspect agency capability';
-        if (tooltip) {
-          tooltip.style.borderColor = '';
-          tooltip.style.boxShadow = '';
-        }
-      }
-    });
   };
 
   // --------------------------------------------------------------------------
