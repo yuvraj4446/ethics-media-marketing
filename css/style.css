@@ -6266,7 +6266,8 @@ main#main-content {
   height: clamp(26px, 3.2vw, 34px);
   object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.65));
+  display: block;
 }
 
 .tool-icon-svg {
@@ -6563,6 +6564,8 @@ main#main-content {
   position: relative;
   width: 100%;
   overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 2.5%, black 97.5%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2.5%, black 97.5%, transparent 100%);
 }
 
 .work-reels-track {

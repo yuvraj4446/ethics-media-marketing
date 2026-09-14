@@ -69,139 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // 3. Category Filter Tabs (Smooth FLIP Layout Transitions)
+  // 3. Category Filter Tabs are managed directly inside the Work Reels Controller
   // --------------------------------------------------------------------------
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('#portfolio-grid .project-card');
 
-  let isFilterAnimating = false;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (isFilterAnimating && btn.classList.contains('is-active')) return;
-
-      // Update active button state
-      filterBtns.forEach(b => {
-        b.classList.remove('is-active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-selected', 'true');
-
-      const filterValue = btn.getAttribute('data-filter');
-
-      // 1. FIRST: Record bounding rectangles of currently visible cards
-      const firstPositions = new Map();
-      projectCards.forEach(card => {
-        if (card.style.display !== 'none' && !card.classList.contains('is-hidden')) {
-          firstPositions.set(card, card.getBoundingClientRect());
-        }
-      });
-
-      // 2. Identify which cards match
-      const matchingCards = [];
-      const hidingCards = [];
-
-      projectCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category') || '';
-        const cardType = card.getAttribute('data-type') || '';
-        const cardTitle = (card.getAttribute('data-title') || '').toLowerCase();
-
-        let matches = (filterValue === 'all');
-        if (filterValue === 'video') {
-          matches = (cardCategory === 'video' || cardType === 'video');
-        } else if (filterValue === 'graphics') {
-          matches = (cardCategory === 'graphics' || cardCategory === 'design' || cardCategory === 'branding');
-        } else if (filterValue === 'ecommerce') {
-          matches = (cardCategory === 'ecommerce');
-        } else if (filterValue === 'motion') {
-          matches = (cardCategory === 'motion' || cardTitle.includes('motion') || cardTitle.includes('timepiece') || cardTitle.includes('explainer'));
-        } else if (filterValue === 'branding') {
-          matches = (cardCategory === 'branding' || cardTitle.includes('brand') || cardTitle.includes('roast') || cardTitle.includes('tokens') || cardTitle.includes('heis'));
-        } else if (filterValue === 'web') {
-          matches = (cardCategory === 'web' || cardTitle.includes('web') || cardTitle.includes('mockup') || cardTitle.includes('interface'));
-        }
-
-        if (matches) {
-          matchingCards.push(card);
-        } else {
-          hidingCards.push(card);
-        }
-      });
-
-      // 3. Smooth fade out hiding cards
-      isFilterAnimating = true;
-      hidingCards.forEach(card => {
-        card.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.95)';
-        card.style.pointerEvents = 'none';
-      });
-
-      setTimeout(() => {
-        hidingCards.forEach(card => {
-          card.style.display = 'none';
-          card.classList.add('is-hidden');
-        });
-
-        // Display matching cards
-        matchingCards.forEach(card => {
-          card.style.display = '';
-          card.classList.remove('is-hidden');
-          card.style.pointerEvents = '';
-        });
-
-        // 4. LAST: Record new bounding rectangles of newly positioned cards
-        const lastPositions = new Map();
-        matchingCards.forEach(card => {
-          lastPositions.set(card, card.getBoundingClientRect());
-        });
-
-        // 5. INVERT & PLAY: Smoothly transition from first to last position
-        matchingCards.forEach(card => {
-          const first = firstPositions.get(card);
-          const last = lastPositions.get(card);
-
-          if (first && last) {
-            const deltaX = first.left - last.left;
-            const deltaY = first.top - last.top;
-
-            if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
-              card.style.transition = 'none';
-              card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease';
-                  card.style.transform = '';
-                  card.style.opacity = '1';
-                });
-              });
-              return;
-            }
-          }
-
-          // Cards newly entering or in place
-          card.style.transition = 'none';
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(10px) scale(0.97)';
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease';
-              card.style.transform = '';
-              card.style.opacity = '1';
-            });
-          });
-        });
-
-        setTimeout(() => {
-          isFilterAnimating = false;
-        }, 420);
-      }, 200);
-    });
-  });
-
-  // --------------------------------------------------------------------------
   // 4. Video Hover Playback Previews & Modal Lightbox Player
   // --------------------------------------------------------------------------
   const hoverVideos = document.querySelectorAll('.hover-video-preview, .featured-card__video, .hero-collage__card--main video');
@@ -652,6 +522,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // --------------------------------------------------------------------------
   // 10. Tools Ecosystem Multi-Track 3D Orbit Controller (Reference 1)
+    // --------------------------------------------------------------------------
+  // 10. Cosmic Tools Orbit Ecosystem (3 Concentric Rings, 21 Brand Logos)
   // --------------------------------------------------------------------------
   const initToolsEcosystemOrbit = () => {
     const stage = document.getElementById('tools-orbit-stage');
@@ -664,84 +536,87 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nodes.length === 0) return;
 
     const innerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'inner');
-    const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') !== 'inner');
+    const middleNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'middle');
+    const outerNodes = Array.from(nodes).filter(n => n.getAttribute('data-orbit') === 'outer');
 
     let baseAngleOuter = 0;
-    let baseAngleInner = 0;
-    let speedOuter = 0.0016;
-    let speedInner = 0.0022;
-    let targetSpeedOuter = 0.0016;
-    let targetSpeedInner = 0.0022;
+    let baseAngleMiddle = 1.0;
+    let baseAngleInner = 2.0;
+
+    const defaultSpeedOuter = 0.0012;
+    const defaultSpeedMiddle = 0.0017;
+    const defaultSpeedInner = 0.0023;
+
+    let targetSpeedOuter = defaultSpeedOuter;
+    let targetSpeedMiddle = defaultSpeedMiddle;
+    let targetSpeedInner = defaultSpeedInner;
+
+    let speedOuter = defaultSpeedOuter;
+    let speedMiddle = defaultSpeedMiddle;
+    let speedInner = defaultSpeedInner;
+
     let manualOffset = 0;
     let targetManualOffset = 0;
+    let activeNode = null;
 
     const layoutOrbit = () => {
       const stageWidth = stage.offsetWidth || window.innerWidth;
       const isMobile = window.innerWidth < 768;
 
-      // Generous Elliptical Radii (Ensures nodes never hide behind the 120px EMM core)
+      // 3 Concentric Orbit Radii with ample clearance from EMM Core
       const rxOuter = isMobile
-        ? Math.max(140, Math.min(185, (stageWidth - 30) / 2))
-        : Math.min(460, Math.max(260, (stageWidth - 80) / 2));
-      const ryOuter = isMobile ? rxOuter * 0.62 : Math.min(170, rxOuter * 0.38);
+        ? Math.max(145, Math.min(195, (stageWidth - 20) / 2))
+        : Math.min(460, Math.max(280, (stageWidth - 80) / 2));
+      const ryOuter = isMobile ? rxOuter * 0.70 : Math.min(175, rxOuter * 0.38);
 
-      const rxInner = rxOuter * 0.64;
-      const ryInner = ryOuter * 0.62;
+      const rxMiddle = rxOuter * 0.75;
+      const ryMiddle = ryOuter * 0.74;
 
-      // Smooth acceleration & manual inertia
-      speedOuter += (targetSpeedOuter - speedOuter) * 0.1;
-      speedInner += (targetSpeedInner - speedInner) * 0.1;
+      const rxInner = rxOuter * 0.49;
+      const ryInner = ryOuter * 0.48;
+
+      // Smooth inertia & speed adjustments
+      speedOuter += (targetSpeedOuter - speedOuter) * 0.08;
+      speedMiddle += (targetSpeedMiddle - speedMiddle) * 0.08;
+      speedInner += (targetSpeedInner - speedInner) * 0.08;
       manualOffset += (targetManualOffset - manualOffset) * 0.12;
 
       baseAngleOuter += speedOuter;
+      baseAngleMiddle += speedMiddle;
       baseAngleInner += speedInner;
 
       const totalAngleOuter = baseAngleOuter + manualOffset;
-      const totalAngleInner = baseAngleInner + manualOffset * 1.2;
+      const totalAngleMiddle = baseAngleMiddle + manualOffset * 1.1;
+      const totalAngleInner = baseAngleInner + manualOffset * 1.25;
 
-      // Position Inner Orbit Nodes
-      innerNodes.forEach((node, idx) => {
-        const angle = (idx / innerNodes.length) * Math.PI * 2 + totalAngleInner;
-        const x = Math.cos(angle) * rxInner;
-        const y = Math.sin(angle) * ryInner;
+      const updateNodeGroup = (nodeList, rx, ry, baseAngle, baseZIndex) => {
+        const total = nodeList.length;
+        nodeList.forEach((node, idx) => {
+          const angle = (idx / total) * Math.PI * 2 + baseAngle;
+          const x = Math.cos(angle) * rx;
+          const y = Math.sin(angle) * ry;
 
-        const depth = (Math.sin(angle) + 1) / 2;
-        const scale = (0.92 + depth * 0.18).toFixed(3);
-        const zIndex = Math.round(15 + depth * 18);
-        const opacity = (0.85 + depth * 0.15).toFixed(2);
+          // Depth metric: 0 at back, 1 at front
+          const depth = (Math.sin(angle) + 1) / 2;
+          const scale = (0.86 + depth * 0.22).toFixed(3);
+          const zIndex = Math.round(baseZIndex + depth * 20);
+          const opacity = (0.82 + depth * 0.18).toFixed(2);
 
-        if (node.classList.contains('is-active')) {
-          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.24)`;
-          node.style.zIndex = '50';
-          node.style.opacity = '1';
-        } else {
-          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
-          node.style.zIndex = zIndex;
-          node.style.opacity = node.classList.contains('is-dimmed') ? '0.45' : opacity;
-        }
-      });
+          if (node === activeNode || node.classList.contains('is-active')) {
+            node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.22)`;
+            node.style.zIndex = '60';
+            node.style.opacity = '1';
+          } else {
+            node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
+            node.style.zIndex = zIndex;
+            node.style.opacity = node.classList.contains('is-dimmed') ? '0.35' : opacity;
+          }
+        });
+      };
 
-      // Position Outer Orbit Nodes
-      outerNodes.forEach((node, idx) => {
-        const angle = (idx / outerNodes.length) * Math.PI * 2 + totalAngleOuter;
-        const x = Math.cos(angle) * rxOuter;
-        const y = Math.sin(angle) * ryOuter;
-
-        const depth = (Math.sin(angle) + 1) / 2;
-        const scale = (0.88 + depth * 0.22).toFixed(3);
-        const zIndex = Math.round(10 + depth * 25);
-        const opacity = (0.82 + depth * 0.18).toFixed(2);
-
-        if (node.classList.contains('is-active')) {
-          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(1.24)`;
-          node.style.zIndex = '50';
-          node.style.opacity = '1';
-        } else {
-          node.style.transform = `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${scale})`;
-          node.style.zIndex = zIndex;
-          node.style.opacity = node.classList.contains('is-dimmed') ? '0.45' : opacity;
-        }
-      });
+      updateNodeGroup(outerNodes, rxOuter, ryOuter, totalAngleOuter, 10);
+      updateNodeGroup(middleNodes, rxMiddle, ryMiddle, totalAngleMiddle, 16);
+      updateNodeGroup(innerNodes, rxInner, ryInner, totalAngleInner, 22);
 
       requestAnimationFrame(layoutOrbit);
     };
@@ -751,12 +626,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hover / touch handlers to slow orbit
     stage.addEventListener('mouseenter', () => {
       targetSpeedOuter = 0.0003;
-      targetSpeedInner = 0.0004;
+      targetSpeedMiddle = 0.0004;
+      targetSpeedInner = 0.0005;
     });
 
     stage.addEventListener('mouseleave', () => {
-      targetSpeedOuter = 0.0016;
-      targetSpeedInner = 0.0022;
+      targetSpeedOuter = defaultSpeedOuter;
+      targetSpeedMiddle = defaultSpeedMiddle;
+      targetSpeedInner = defaultSpeedInner;
+      activeNode = null;
       nodes.forEach(n => {
         n.classList.remove('is-active');
         n.classList.remove('is-dimmed');
@@ -768,19 +646,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Node click and hover activations
+    // Tool node hover & focus activations
     nodes.forEach(node => {
       const toolName = node.getAttribute('data-tool') || '';
       const category = node.getAttribute('data-category') || '';
       const role = node.getAttribute('data-role') || '';
 
       const activateTool = () => {
+        activeNode = node;
         nodes.forEach(n => {
-          n.classList.remove('is-active');
-          n.classList.add('is-dimmed');
+          if (n === node) {
+            n.classList.add('is-active');
+            n.classList.remove('is-dimmed');
+          } else {
+            n.classList.remove('is-active');
+            n.classList.add('is-dimmed');
+          }
         });
-        node.classList.remove('is-dimmed');
-        node.classList.add('is-active');
 
         if (tooltipText) {
           tooltipText.innerHTML = `<strong>${toolName}</strong> (${category}) — ${role}`;
@@ -799,11 +681,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Core interactions
+    // Center Core interaction
     if (emmCore) {
       emmCore.addEventListener('mouseenter', () => {
         if (tooltipText) {
-          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 20+ Production Tools for End-to-End Creative &amp; Growth Performance';
+          tooltipText.innerHTML = '<strong>Ethics Media Marketing Creative Stack</strong> — 21 Production Tools for End-to-End Creative &amp; Growth Performance';
         }
         if (tooltip) {
           tooltip.style.borderColor = '#00d2ff';
@@ -820,14 +702,16 @@ document.addEventListener('DOMContentLoaded', () => {
       isDown = true;
       startX = e.pageX;
       targetSpeedOuter = 0;
+      targetSpeedMiddle = 0;
       targetSpeedInner = 0;
     });
 
     window.addEventListener('mouseup', () => {
       if (isDown) {
         isDown = false;
-        targetSpeedOuter = 0.0016;
-        targetSpeedInner = 0.0022;
+        targetSpeedOuter = defaultSpeedOuter;
+        targetSpeedMiddle = defaultSpeedMiddle;
+        targetSpeedInner = defaultSpeedInner;
       }
     });
 
@@ -842,7 +726,8 @@ document.addEventListener('DOMContentLoaded', () => {
     stage.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
       targetSpeedOuter = 0.0003;
-      targetSpeedInner = 0.0004;
+      targetSpeedMiddle = 0.0004;
+      targetSpeedInner = 0.0005;
     }, { passive: true });
 
     stage.addEventListener('touchmove', (e) => {
@@ -862,9 +747,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('reel-prev-btn');
     const nextBtn = document.getElementById('reel-next-btn');
     const filterBtns = document.querySelectorAll('.work__filter-bar .filter-btn');
-    const cards = track ? track.querySelectorAll('.work-reel-card') : [];
 
-    if (!stage || !viewport || !track || cards.length === 0) return;
+    if (!stage || !viewport || !track) return;
+
+    // Ensure Set B (clones) exists for continuous seamless infinite loop
+    let originalCards = Array.from(track.querySelectorAll('.work-reel-card:not(.is-clone)'));
+    let cloneCards = Array.from(track.querySelectorAll('.work-reel-card.is-clone'));
+
+    if (cloneCards.length === 0 && originalCards.length > 0) {
+      const fragment = document.createDocumentFragment();
+      originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.classList.add('is-clone');
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+        fragment.appendChild(clone);
+      });
+      track.appendChild(fragment);
+      cloneCards = Array.from(track.querySelectorAll('.work-reel-card.is-clone'));
+    }
 
     let scrollPos = 0;
     let targetSpeed = 0.85; // Continuous cinematic forward drift
@@ -874,25 +775,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let dragStartX = 0;
     let singleTrackWidth = 0;
 
-    // Calculate width of Set A (half of total track)
     const updateMetrics = () => {
-      // Find boundary of first set
-      let total = 0;
-      const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
-      const halfCount = Math.floor(visibleCards.length / 2);
-      if (halfCount === 0) return;
+      const visibleOriginals = Array.from(track.querySelectorAll('.work-reel-card:not(.is-clone)')).filter(c => c.style.display !== 'none');
+      const visibleClones = Array.from(track.querySelectorAll('.work-reel-card.is-clone')).filter(c => c.style.display !== 'none');
 
-      for (let i = 0; i < halfCount; i++) {
-        total += visibleCards[i].offsetWidth + 20; // card width + gap (1.25rem = 20px)
+      if (visibleOriginals.length > 0 && visibleClones.length > 0) {
+        singleTrackWidth = visibleClones[0].offsetLeft - visibleOriginals[0].offsetLeft;
       }
-      singleTrackWidth = total > 0 ? total : track.scrollWidth / 2;
+      if (!singleTrackWidth || singleTrackWidth <= 50) {
+        let total = 0;
+        visibleOriginals.forEach(c => {
+          total += (c.offsetWidth || 260) + 20; // card width + gap (20px)
+        });
+        singleTrackWidth = total > 0 ? total : track.scrollWidth / 2;
+      }
     };
 
     updateMetrics();
+    window.addEventListener('load', updateMetrics);
     window.addEventListener('resize', updateMetrics);
 
-    // Continuous Infinite Marquee RAF loop
+    // Continuous Infinite Marquee RAF Loop
     const renderLoop = () => {
+      if (!singleTrackWidth || singleTrackWidth <= 50) {
+        updateMetrics();
+      }
+
       if (singleTrackWidth > 50) {
         if (!isHovered && !isDragging) {
           currentSpeed += (targetSpeed - currentSpeed) * 0.1;
@@ -906,7 +814,7 @@ document.addEventListener('DOMContentLoaded', () => {
           scrollPos += singleTrackWidth;
         }
 
-        track.style.transform = `translate3d(${-scrollPos}px, 0, 0)`;
+        track.style.transform = `translate3d(${-scrollPos.toFixed(1)}px, 0, 0)`;
       }
 
       requestAnimationFrame(renderLoop);
@@ -929,6 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Desktop Mouse Drag
     stage.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button') || e.target.closest('a')) return;
       isDragging = true;
       dragStartX = e.pageX;
       stage.classList.add('is-dragging');
@@ -969,7 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1200);
     });
 
-    // Arrow controls
+    // Arrow Controls
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
         scrollPos -= 320;
@@ -982,34 +891,38 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Video auto-preview on desktop hover & click modals
-    cards.forEach(card => {
+    // Video auto-preview on desktop hover & click modals via Event Delegation on track
+    track.addEventListener('mouseenter', (e) => {
+      const card = e.target.closest('.work-reel-card');
+      if (!card) return;
       const video = card.querySelector('.work-reel-card__video');
-      if (video) {
-        card.addEventListener('mouseenter', () => {
-          video.play().catch(() => {});
-        });
-        card.addEventListener('mouseleave', () => {
-          video.pause();
-        });
+      if (video) video.play().catch(() => {});
+    }, true);
+
+    track.addEventListener('mouseleave', (e) => {
+      const card = e.target.closest('.work-reel-card');
+      if (!card) return;
+      const video = card.querySelector('.work-reel-card__video');
+      if (video) video.pause();
+    }, true);
+
+    track.addEventListener('click', (e) => {
+      const card = e.target.closest('.work-reel-card');
+      if (!card) return;
+      const videoSrc = card.getAttribute('data-video-src');
+      const title = card.getAttribute('data-title') || 'Project Showcase';
+      const subtitle = card.getAttribute('data-subtitle') || '';
+
+      if (videoSrc) {
+        e.preventDefault();
+        openVideoModal(videoSrc, title, subtitle);
+      } else {
+        e.preventDefault();
+        openProjectModal(card);
       }
-
-      card.addEventListener('click', (e) => {
-        const videoSrc = card.getAttribute('data-video-src');
-        const title = card.getAttribute('data-title') || 'Project Showcase';
-        const subtitle = card.getAttribute('data-subtitle') || '';
-
-        if (videoSrc) {
-          e.preventDefault();
-          openVideoModal(videoSrc, title, subtitle);
-        } else {
-          e.preventDefault();
-          openProjectModal(card);
-        }
-      });
     });
 
-    // Category Filter system
+    // Category Filter System
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => {
@@ -1019,9 +932,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.add('is-active');
         btn.setAttribute('aria-selected', 'true');
 
-        const filter = btn.getAttribute('data-filter');
+        const filter = btn.getAttribute('data-filter') || 'all';
 
-        cards.forEach(card => {
+        const allCards = track.querySelectorAll('.work-reel-card');
+        allCards.forEach(card => {
           const cat = card.getAttribute('data-category') || '';
           const filterCat = card.getAttribute('data-filter-category') || '';
           const matches = (filter === 'all' || cat === filter || filterCat === filter);
@@ -1034,13 +948,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        // Reset scroll position and recalculate track width
         scrollPos = 0;
         updateMetrics();
       });
     });
   };
 
+  // --------------------------------------------------------------------------
+  // 13. Dynamic Project Card
   // 13. Dynamic Project Card Deliverables Overlay Injector
   // --------------------------------------------------------------------------
   const initProjectCardHoverInfo = () => {

@@ -678,7 +678,7 @@
         <!-- ======================================================================
          04 — Skills & Tools Section: Interactive Orbiting Ecosystem (Reference 1)
          ====================================================================== -->
-            <section id="skills" class="section tools-ecosystem-section">
+                <section id="skills" class="section tools-ecosystem-section">
       <div class="container">
         <!-- Section Header (Ref 1: "✦ TOOLS", "Tools That Power Our Creativity", "Explore Tools →") -->
         <div class="tools-ecosystem-header reveal-fade">
@@ -711,11 +711,11 @@
         </div>
 
         <!-- Cosmic Orbital Arena (Multi-Track 3D Solar System) -->
-        <div class="tools-orbit-stage-wrapper reveal-fade" id="tools-orbit-wrapper">
+        <div class="tools-orbit-stage-wrapper" id="tools-orbit-wrapper">
           <div class="tools-orbit-stage" id="tools-orbit-stage" role="region" aria-label="Creative Tech Ecosystem Orbit">
             
-            <!-- Multi-Track SVG Orbits with Cyan Cosmic Depth (Ref 1) -->
-            <svg class="tools-orbit-svg" viewBox="0 0 1000 460" fill="none" aria-hidden="true">
+            <!-- 3-Track Concentric SVG Orbits with Cyan Cosmic Depth -->
+            <svg class="tools-orbit-svg" viewBox="0 0 1000 480" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="orbitCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#0066ff" stop-opacity="0.6"/>
@@ -723,22 +723,22 @@
                   <stop offset="100%" stop-color="#0066ff" stop-opacity="0.4"/>
                 </linearGradient>
                 <filter id="orbitGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
                   <feMerge>
                     <feMergeNode in="blur"/>
                     <feMergeNode in="SourceGraphic"/>
                   </feMerge>
                 </filter>
               </defs>
-              <!-- Outer Tilted Orbit Path -->
-              <ellipse cx="500" cy="230" rx="440" ry="165" stroke="url(#orbitCyanGrad)" stroke-width="1.6" stroke-dasharray="5 7" filter="url(#orbitGlow)" />
-              <!-- Inner Tilted Orbit Path -->
-              <ellipse cx="500" cy="230" rx="285" ry="105" stroke="rgba(0, 210, 255, 0.45)" stroke-width="1.3" stroke-dasharray="4 6" />
-              <!-- Subtle Ambient Ring -->
-              <ellipse cx="500" cy="230" rx="465" ry="175" stroke="rgba(0, 110, 255, 0.18)" stroke-width="1" stroke-dasharray="1 10" />
+              <!-- Ring 3 Outer Orbit Track -->
+              <ellipse cx="500" cy="240" rx="450" ry="175" stroke="url(#orbitCyanGrad)" stroke-width="1.5" stroke-dasharray="5 7" filter="url(#orbitGlow)" />
+              <!-- Ring 2 Middle Orbit Track -->
+              <ellipse cx="500" cy="240" rx="340" ry="130" stroke="rgba(0, 210, 255, 0.45)" stroke-width="1.3" stroke-dasharray="4 6" />
+              <!-- Ring 1 Inner Orbit Track -->
+              <ellipse cx="500" cy="240" rx="220" ry="85" stroke="rgba(0, 180, 255, 0.35)" stroke-width="1.2" stroke-dasharray="3 5" />
             </svg>
 
-            <!-- Center Glowing EMM Core Sphere (Ref 1: "EMM" + "CREATIVE STACK") -->
+            <!-- Center Glowing EMM Core Sphere -->
             <div class="emm-orbit-core" id="emm-orbit-core" tabindex="0" role="button" aria-label="EMM Creative Stack Core">
               <div class="emm-core-outer-halo"></div>
               <div class="emm-core-rotating-ring"></div>
@@ -749,173 +749,173 @@
               <div class="emm-core-rim-glow"></div>
             </div>
 
-            <!-- 21 Distinct Visible Tool Nodes -->
-            <!-- 1. Blender (INNER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Blender" data-category="3D & VFX" data-role="Photorealistic 3D product modeling & particle simulations" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--blender">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="4.5" fill="#ea7600"/><circle cx="12" cy="13" r="2.2" fill="#ffffff"/><path d="M12 8.5V2.5M8.5 9.5L3.5 5.5M15.5 9.5l5-4" stroke="#ea7600" stroke-width="2.2" stroke-linecap="round"/></svg>
-              </div>
-              <span class="tool-node-label">Blender</span>
-            </div>
-
-            <!-- 2. Shopify (INNER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Shopify" data-category="E-Commerce" data-role="Conversion storefront architecture & checkout optimization" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--shopify">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#95bf47"><path d="M18.8 6.2c-.1-.3-.3-.4-.5-.4-.2 0-3.3.1-3.3.1s-2.2-2.2-2.4-2.4c-.3-.3-.8-.3-1.1-.1l-.6.4c-.4-.7-1.1-1.2-2-1.2-1.4 0-2.3 1.2-2.5 2.5l-2.4.7c-.5.1-.6.6-.5 1l2.5 13.5c.1.5.5.8 1 .8h10.4c.5 0 .9-.3 1-.8l2-13.6c.1-.4 0-.7-.1-.9zm-6.6-2.1c.3.3.8.8 1.4 1.4l-3.3 1c.2-1.1.9-2 1.9-2.4zm-2.4 3.7l2.8-.9v2.2l-2.8-.7v-.6zm2.4 12.3c-.6-.2-1.5-.7-2.3-1.4l-1.3-7.5 3.6.9v8zm1.2 0v-8.2l3.4-.8-1.5 9zm4.8-9.4l-.8 4.6c-.6-.4-1.2-.7-1.9-1l.7-4.2 2 .6z"/></svg>
-              </div>
-              <span class="tool-node-label">Shopify</span>
-            </div>
-
-            <!-- 3. Meta Ads (INNER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Meta Ads" data-category="Paid Social" data-role="Performance scale campaigns, CBO & creative testing matrices" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--meta">
-                <img src="assets/icons/meta.png" alt="Meta Ads" class="tool-icon-img" loading="eager" />
-              </div>
-              <span class="tool-node-label">Meta Ads</span>
-            </div>
-
-            <!-- 4. Figma (INNER ORBIT) -->
+            <!-- 21 Distinct Visible Tool Nodes (Each with local verified brand icon) -->
+            <!-- 1. Figma (INNER RING) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Figma" data-category="UI/UX & Systems" data-role="Conversion landing page UI, mobile prototypes & design systems" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--figma">
+              <div class="tool-node-circle">
                 <img src="assets/icons/figma.png" alt="Figma" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Figma</span>
             </div>
 
-            <!-- 5. Canva (INNER ORBIT) -->
+            <!-- 2. Canva (INNER RING) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Canva" data-category="Visual Collateral" data-role="Rapid omnichannel marketing collateral & brand assets" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--canva">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#00c4cc"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#00c4cc" stroke-width="2"/><path d="M15 8.5c-1.5-1-4-1-5 1s0 4 2 5c2 1 3 0 3.5-.5" stroke="#00c4cc" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+              <div class="tool-node-circle">
+                <img src="assets/icons/canva.svg" alt="Canva" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Canva</span>
             </div>
 
-            <!-- 6. Notion (INNER ORBIT) -->
+            <!-- 3. Shopify (INNER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Shopify" data-category="E-Commerce" data-role="Conversion storefront architecture & checkout optimization" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/shopify.svg" alt="Shopify" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Shopify</span>
+            </div>
+
+            <!-- 4. Notion (INNER RING) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Notion" data-category="Production Hub" data-role="Agile production sprints, client asset portals & content calendars" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--notion">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#ffffff"><path d="M4.5 4.5L16.2 3.2c1.2-.1 1.6.4 1.8 1.4l1.5 12.3c.2 1.3-.3 1.8-1.5 1.9L6.2 20c-1.2.1-1.8-.4-2-1.6L3 5.8c-.2-1.1.4-1.2 1.5-1.3zm3.8 3.5v7.8l6.3-8.2v7.7h1.6V6.5l-6.2 8.1V8H8.3z"/></svg>
+              <div class="tool-node-circle">
+                <img src="assets/icons/notion.svg" alt="Notion" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Notion</span>
             </div>
 
-            <!-- 7. Make (INNER ORBIT) -->
+            <!-- 5. Make (INNER RING) -->
             <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Make" data-category="Automation" data-role="Automated cross-platform content syndication & webhook pipelines" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--make">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#6d31ff"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/><path d="M10.5 6.8h3M6.8 10.5v3M13.5 17.2h-3M17.2 13.5v-3" stroke="#ffffff" stroke-width="1.8"/></svg>
+              <div class="tool-node-circle">
+                <img src="assets/icons/make.svg" alt="Make" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Make</span>
             </div>
 
-            <!-- 8. DaVinci Resolve (INNER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="DaVinci Resolve" data-category="Color & Sound" data-role="Color grading, cinematic tonal balancing & Fairlight audio mastering" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--davinci">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6.5" r="3.2" fill="#ff4444"/><circle cx="6.5" cy="15.5" r="3.2" fill="#4488ff"/><circle cx="17.5" cy="15.5" r="3.2" fill="#ffbb00"/></svg>
+            <!-- 6. Blender (INNER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--inner" data-orbit="inner" data-tool="Blender" data-category="3D & VFX" data-role="Photorealistic 3D product modeling & particle simulations" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/blender.svg" alt="Blender" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Blender</span>
+            </div>
+
+            <!-- 7. Adobe Premiere Pro (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Adobe Premiere Pro" data-category="Video Editing" data-role="High-retention social reel editing, multicam cuts & sound pacing" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/premiere-pro.png" alt="Adobe Premiere Pro" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Adobe Premiere Pro</span>
+            </div>
+
+            <!-- 8. Adobe Photoshop (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Adobe Photoshop" data-category="Graphic Design" data-role="High-converting ad creative design, retouching & hero visuals" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/adobe-photoshop.png" alt="Adobe Photoshop" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Adobe Photoshop</span>
+            </div>
+
+            <!-- 9. DaVinci Resolve (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="DaVinci Resolve" data-category="Color & Sound" data-role="Color grading, cinematic tonal balancing & Fairlight audio mastering" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/davinci-resolve.svg" alt="DaVinci Resolve" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">DaVinci Resolve</span>
             </div>
 
-            <!-- 9. Premiere Pro (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Premiere Pro" data-category="Video Editing" data-role="High-retention social reel editing, multicam cuts & sound pacing" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--pr">
-                <img src="assets/icons/PREMIER PRO.png" alt="Premiere Pro" class="tool-icon-img" loading="eager" />
-              </div>
-              <span class="tool-node-label">Premiere Pro</span>
-            </div>
-
-            <!-- 10. Photoshop (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Photoshop" data-category="Graphic Design" data-role="High-converting ad creative design, retouching & hero visuals" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--ps">
-                <img src="assets/icons/PHOTOSHOP.png" alt="Photoshop" class="tool-icon-img" loading="eager" />
-              </div>
-              <span class="tool-node-label">Photoshop</span>
-            </div>
-
-            <!-- 11. Lightroom (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Lightroom" data-category="Photo Finishing" data-role="Commercial color grading, batch editorial treatments & raw styling" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--lr">
-                <svg class="tool-icon-svg" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#001e36"/><text x="7" y="22" fill="#31a8ff" font-family="sans-serif" font-weight="bold" font-size="16">Lr</text></svg>
-              </div>
-              <span class="tool-node-label">Lightroom</span>
-            </div>
-
-            <!-- 12. After Effects (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="After Effects" data-category="Motion Graphics" data-role="Kinetic typography, 3D motion transitions & visual effects" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--ae">
-                <svg class="tool-icon-svg" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#00005b"/><text x="6" y="22" fill="#9999ff" font-family="sans-serif" font-weight="bold" font-size="16">Ae</text></svg>
-              </div>
-              <span class="tool-node-label">After Effects</span>
-            </div>
-
-            <!-- 13. CapCut (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="CapCut" data-category="Short-Form" data-role="Fast-turnaround velocity edits, trending audio & viral cuts" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--capcut">
+            <!-- 10. CapCut (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="CapCut" data-category="Short-Form" data-role="Fast-turnaround velocity edits, trending audio & viral cuts" tabindex="0">
+              <div class="tool-node-circle">
                 <img src="assets/icons/capcut.png" alt="CapCut" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">CapCut</span>
             </div>
 
-            <!-- 14. Runway (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Runway" data-category="Gen-AI Video" data-role="Generative video extensions, camera control & style synthesis" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--runway">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#ffffff"><path d="M6 4h7a5 5 0 0 1 5 5 5 5 0 0 1-3.5 4.8L19 20h-4l-4-5.5H9V20H6V4zm3 3v4.5h4a2 2 0 0 0 2-2 2 2 0 0 0-2-2.5H9z"/></svg>
+            <!-- 11. Meta Ads (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Meta Ads" data-category="Paid Social" data-role="Performance scale campaigns, CBO & creative testing matrices" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/meta.png" alt="Meta Ads" class="tool-icon-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Runway</span>
+              <span class="tool-node-label">Meta Ads</span>
             </div>
 
-            <!-- 15. Midjourney (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Midjourney" data-category="Generative Art" data-role="Conceptual visual synthesis & photorealistic moodboarding" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--midjourney">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M4 18c4 2 12 2 16 0"/><path d="M7 16c2-4 5-11 5-11s3 7 5 11"/><path d="M12 5v11"/></svg>
+            <!-- 12. Google Ads (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="Google Ads" data-category="Search & PPC" data-role="High-intent search, Performance Max & YouTube funnels" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/google-ads.svg" alt="Google Ads" class="tool-icon-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Midjourney</span>
+              <span class="tool-node-label">Google Ads</span>
             </div>
 
-            <!-- 16. ChatGPT (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="ChatGPT" data-category="AI Strategy" data-role="Hook ideation, consumer persona research & ad scriptwriting" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--chatgpt">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#10a37f" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 3a9 9 0 0 1 7.8 4.5l-4.3 2.5a4 4 0 0 0-3.5-2V3z"/><path d="M21 12a9 9 0 0 1-4.5 7.8l-2.5-4.3a4 4 0 0 0 2-3.5h5z"/><path d="M12 21a9 9 0 0 1-7.8-4.5l4.3-2.5a4 4 0 0 0 3.5 2v5z"/><path d="M3 12a9 9 0 0 1 4.5-7.8l2.5 4.3a4 4 0 0 0-2 3.5H3z"/></svg>
+            <!-- 13. ChatGPT (MIDDLE RING) -->
+            <div class="tool-orbit-node tool-orbit-node--middle" data-orbit="middle" data-tool="ChatGPT" data-category="AI Strategy" data-role="Hook ideation, consumer persona research & ad scriptwriting" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/chatgpt.svg" alt="ChatGPT" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">ChatGPT</span>
             </div>
 
-            <!-- 17. Google Workspace (OUTER ORBIT) -->
+            <!-- 14. Adobe After Effects (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Adobe After Effects" data-category="Motion Graphics" data-role="Kinetic typography, 3D motion transitions & visual effects" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/after-effects.svg" alt="Adobe After Effects" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Adobe After Effects</span>
+            </div>
+
+            <!-- 15. Adobe Lightroom (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Adobe Lightroom" data-category="Photo Finishing" data-role="Commercial color grading, batch editorial treatments & raw styling" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/lightroom.svg" alt="Adobe Lightroom" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Adobe Lightroom</span>
+            </div>
+
+            <!-- 16. Runway (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Runway" data-category="Gen-AI Video" data-role="Generative video extensions, camera control & style synthesis" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/runway.svg" alt="Runway" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Runway</span>
+            </div>
+
+            <!-- 17. Midjourney (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Midjourney" data-category="Generative Art" data-role="Conceptual visual synthesis & photorealistic moodboarding" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/midjourney.svg" alt="Midjourney" class="tool-icon-img" loading="eager" />
+              </div>
+              <span class="tool-node-label">Midjourney</span>
+            </div>
+
+            <!-- 18. Google Workspace (OUTER RING) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Google Workspace" data-category="Operations" data-role="Cloud asset workflows, shared drives & client collaboration" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--gsuite">
+              <div class="tool-node-circle">
                 <img src="assets/icons/google-workspace.png" alt="Google Workspace" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Google Workspace</span>
             </div>
 
-            <!-- 18. n8n (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="n8n" data-category="Backend Automations" data-role="Custom serverless data ETL, API syncs & lead capture routing" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--n8n">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ff6d5a" stroke-width="2.2"><circle cx="6" cy="6" r="3" fill="#ff6d5a"/><circle cx="18" cy="6" r="3" fill="#ff6d5a"/><circle cx="12" cy="18" r="3" fill="#ff6d5a"/><path d="M6 9v3a3 3 0 0 0 3 3h3m6-9v3a3 3 0 0 1-3 3h-3"/></svg>
+            <!-- 19. WhatsApp Business (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="WhatsApp Business" data-category="Direct CRM" data-role="Direct VIP client communications & fast feedback pipelines" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/whatsapp.svg" alt="WhatsApp Business" class="tool-icon-img" loading="eager" />
               </div>
-              <span class="tool-node-label">n8n</span>
+              <span class="tool-node-label">WhatsApp Business</span>
             </div>
 
-            <!-- 19. WhatsApp (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="WhatsApp" data-category="Direct CRM" data-role="Direct VIP client communications & fast feedback pipelines" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--whatsapp">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#25d366"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.39 1.3-1.92 1.38-.5.08-1.14.12-3.69-.93-3.26-1.35-5.35-4.66-5.51-4.88-.16-.22-1.32-1.76-1.32-3.36 0-1.6 1.05-2.39 1.42-2.73.37-.34.8-.43 1.07-.43.27 0 .53.01.76.02.24.01.56-.09.88.67.33.78 1.13 2.76 1.23 2.96.1.2.16.44.03.7-.13.26-.2.42-.4.65-.2.23-.42.51-.6.69-.2.2-.41.42-.18.82.23.4 1.02 1.68 2.19 2.72 1.51 1.35 2.78 1.77 3.18 1.96.4.2.63.17.86-.1.24-.27 1.01-1.18 1.28-1.58.27-.4.54-.33.91-.2.37.13 2.36 1.11 2.76 1.31.4.2.67.3.77.47.1.17.1.98-.14 1.66z"/></svg>
-              </div>
-              <span class="tool-node-label">WhatsApp</span>
-            </div>
-
-            <!-- 20. Google Analytics (OUTER ORBIT) -->
+            <!-- 20. Google Analytics (OUTER RING) -->
             <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Google Analytics" data-category="Data & CRO" data-role="Omnichannel event tracking, funnel drop-off & attribution modeling" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--ga4">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="#f9ab00"><rect x="15" y="4" width="5.5" height="16" rx="2.5"/><rect x="9.2" y="10" width="5.5" height="10" rx="2.5"/><circle cx="4" cy="17.5" r="2.5"/></svg>
+              <div class="tool-node-circle">
+                <img src="assets/icons/google-analytics.svg" alt="Google Analytics" class="tool-icon-img" loading="eager" />
               </div>
               <span class="tool-node-label">Google Analytics</span>
             </div>
 
-            <!-- 21. Google Ads (OUTER ORBIT) -->
-            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="Google Ads" data-category="Search & PPC" data-role="High-intent search, Performance Max & YouTube funnels" tabindex="0">
-              <div class="tool-node-circle tool-node-circle--googleads">
-                <svg class="tool-icon-svg" viewBox="0 0 24 24" fill="none"><rect x="3" y="10" width="8" height="11" rx="4" transform="rotate(-30 3 10)" fill="#fabb05"/><rect x="13" y="4" width="8" height="17" rx="4" transform="rotate(30 13 4)" fill="#4285f4"/><circle cx="6.5" cy="18" r="3.5" fill="#34a853"/></svg>
+            <!-- 21. n8n (OUTER RING) -->
+            <div class="tool-orbit-node tool-orbit-node--outer" data-orbit="outer" data-tool="n8n" data-category="Backend Automations" data-role="Custom serverless data ETL, API syncs & lead capture routing" tabindex="0">
+              <div class="tool-node-circle">
+                <img src="assets/icons/n8n.svg" alt="n8n" class="tool-icon-img" loading="eager" />
               </div>
-              <span class="tool-node-label">Google Ads</span>
+              <span class="tool-node-label">n8n</span>
             </div>
 
           </div>
@@ -1014,7 +1014,7 @@
           <div class="work-reels-viewport" id="work-reels-viewport">
             <div class="work-reels-track" id="portfolio-grid">
 
-              <!-- ORIGINAL SET A -->
+              <!-- ORIGINAL SET A (36 Project Reels) -->
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -1042,7 +1042,6 @@
                   <p class="work-reel-card__subtitle">Premium Skincare Product Ad</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="motion"
                        data-filter-category="motion"
@@ -1071,7 +1070,6 @@
                   <p class="work-reel-card__subtitle">Motion Graphics Showreel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="video"
                        data-filter-category="video"
@@ -1100,7 +1098,6 @@
                   <p class="work-reel-card__subtitle">Creator Dialogue Edit</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -1128,7 +1125,6 @@
                   <p class="work-reel-card__subtitle">Athletic Product Launch</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ads"
                        data-filter-category="ads"
@@ -1157,7 +1153,6 @@
                   <p class="work-reel-card__subtitle">Automotive Campaign</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1186,7 +1181,6 @@
                   <p class="work-reel-card__subtitle">Travel & Lifestyle Reel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="video"
                        data-filter-category="video"
@@ -1215,7 +1209,6 @@
                   <p class="work-reel-card__subtitle">Healthcare Story</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1244,7 +1237,6 @@
                   <p class="work-reel-card__subtitle">Fitness Motivation</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="branding"
                        data-filter-category="branding"
@@ -1272,7 +1264,6 @@
                   <p class="work-reel-card__subtitle">Brand Identity Film</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1300,7 +1291,6 @@
                   <p class="work-reel-card__subtitle">Literature Editorial Poster</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1328,7 +1318,6 @@
                   <p class="work-reel-card__subtitle">Civic Event Campaign Poster</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1356,7 +1345,6 @@
                   <p class="work-reel-card__subtitle">Finance Carousel Creative System</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="motion"
                        data-filter-category="motion"
@@ -1385,7 +1373,6 @@
                   <p class="work-reel-card__subtitle">3D Fluid Dynamics Simulation</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="web"
                        data-filter-category="web"
@@ -1413,7 +1400,6 @@
                   <p class="work-reel-card__subtitle">Conversion Landing Page UI</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ads"
                        data-filter-category="ads"
@@ -1442,7 +1428,6 @@
                   <p class="work-reel-card__subtitle">National Civic Awareness Ad</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1471,7 +1456,6 @@
                   <p class="work-reel-card__subtitle">Dialogue Podcast Social Cut</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -1500,7 +1484,6 @@
                   <p class="work-reel-card__subtitle">FinTech Product Video Reel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="branding"
                        data-filter-category="branding"
@@ -1528,8 +1511,6 @@
                   <p class="work-reel-card__subtitle">Identity & Typography System</p>
                 </div>
               </article>
-
-              <!-- CLONE SET B -->
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -1557,7 +1538,6 @@
                   <p class="work-reel-card__subtitle">Premium Skincare Product Ad</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="motion"
                        data-filter-category="motion"
@@ -1586,7 +1566,6 @@
                   <p class="work-reel-card__subtitle">Motion Graphics Showreel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="video"
                        data-filter-category="video"
@@ -1615,7 +1594,6 @@
                   <p class="work-reel-card__subtitle">Creator Dialogue Edit</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -1643,7 +1621,6 @@
                   <p class="work-reel-card__subtitle">Athletic Product Launch</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ads"
                        data-filter-category="ads"
@@ -1672,7 +1649,6 @@
                   <p class="work-reel-card__subtitle">Automotive Campaign</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1701,7 +1677,6 @@
                   <p class="work-reel-card__subtitle">Travel & Lifestyle Reel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="video"
                        data-filter-category="video"
@@ -1730,7 +1705,6 @@
                   <p class="work-reel-card__subtitle">Healthcare Story</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1759,7 +1733,6 @@
                   <p class="work-reel-card__subtitle">Fitness Motivation</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="branding"
                        data-filter-category="branding"
@@ -1787,7 +1760,6 @@
                   <p class="work-reel-card__subtitle">Brand Identity Film</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1815,7 +1787,6 @@
                   <p class="work-reel-card__subtitle">Literature Editorial Poster</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1843,7 +1814,6 @@
                   <p class="work-reel-card__subtitle">Civic Event Campaign Poster</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="graphic"
                        data-filter-category="graphic"
@@ -1871,7 +1841,6 @@
                   <p class="work-reel-card__subtitle">Finance Carousel Creative System</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="motion"
                        data-filter-category="motion"
@@ -1900,7 +1869,6 @@
                   <p class="work-reel-card__subtitle">3D Fluid Dynamics Simulation</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="web"
                        data-filter-category="web"
@@ -1928,7 +1896,6 @@
                   <p class="work-reel-card__subtitle">Conversion Landing Page UI</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ads"
                        data-filter-category="ads"
@@ -1957,7 +1924,6 @@
                   <p class="work-reel-card__subtitle">National Civic Awareness Ad</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="social"
                        data-filter-category="social"
@@ -1986,7 +1952,6 @@
                   <p class="work-reel-card__subtitle">Dialogue Podcast Social Cut</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--video"
                        data-category="ecommerce"
                        data-filter-category="ecommerce"
@@ -2015,7 +1980,6 @@
                   <p class="work-reel-card__subtitle">FinTech Product Video Reel</p>
                 </div>
               </article>
-
               <article class="project-card work-reel-card work-reel-card--image"
                        data-category="branding"
                        data-filter-category="branding"
@@ -2044,6 +2008,999 @@
                 </div>
               </article>
 
+              <!-- CLONED SET B (Seamless Infinite Loop) -->
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="image"
+                       data-title="Solaris Luxe Skincare Ad Campaign"
+                       data-subtitle="E-Commerce Creative • Macro Texture"
+                       data-desc="High-converting visual asset package for botanical skincare featuring studio lighting, water droplet macro textures, and luxury typography."
+                       tabindex="0">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/meigen-2016511852927438909 (1).jpg" alt="Solaris Luxe Skincare Ad Campaign" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">GLOW CLEAN REPEAT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.2M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Premium Skincare Product Ad</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="motion"
+                       data-filter-category="motion"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7616.MP4"
+                       data-title="Precision Chrono: Ideas That Move"
+                       data-subtitle="3D Luxury Timepiece & Motion"
+                       data-desc="Photorealistic 3D timepiece rendering with kinetic lighting transitions, exploded mechanical movements, and sound design."
+                       tabindex="0">
+                <div class="work-reel-card__badge">MOTION GRAPHICS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7616.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">IDEAS THAT MOVE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">842K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Motion Graphics Showreel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="video"
+                       data-filter-category="video"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7075.MP4"
+                       data-title="High-Energy Creator Dialogue: 'What If'"
+                       data-subtitle="Short-Form Pacing & Kinetic Subtitles"
+                       data-desc="Fast-paced creator dialogue edit with bold animated subtitles, punchy visual hooks, sound effects, and high-retention pacing."
+                       tabindex="0">
+                <div class="work-reel-card__badge">VIDEO EDITING</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7075.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">CREATOR DIALOGUE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Creator Dialogue Edit</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="image"
+                       data-title="Pro Athletic Footwear Launch"
+                       data-subtitle="E-Commerce Mobile Ad Funnel"
+                       data-desc="Conversion-focused athletic footwear ad campaign engineered for maximum swipe-up velocity and ROAS across Meta and TikTok."
+                       tabindex="0">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/mockup-phone1.png" alt="Pro Athletic Footwear Launch" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">JUST A STEP AHEAD</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Athletic Product Launch</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ads"
+                       data-filter-category="ads"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7622.MP4"
+                       data-title="Built To Belong: Luxury Automotive"
+                       data-subtitle="Cinematic Commercial & Sound Design"
+                       data-desc="High-end automotive cinema spot featuring low-key lighting, anamorphic lens flares, sound mastery, and emotional pacing."
+                       tabindex="0">
+                <div class="work-reel-card__badge">ADS & CAMPAIGNS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7622.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BUILT TO BELONG</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Automotive Campaign</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7621.MP4"
+                       data-title="Boutique Hospitality & Heritage Architecture"
+                       data-subtitle="Desert Architecture & Venue Atmosphere"
+                       data-desc="Atmospheric architectural reel capturing heritage desert stone textures, ambient daylight transitions, and luxury hospitality appeal."
+                       tabindex="0">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7621.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">DISCOVER MORE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Travel & Lifestyle Reel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="video"
+                       data-filter-category="video"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7620.MP4"
+                       data-title="Surgical Specialist Patient Education"
+                       data-subtitle="Clinical Credibility & Medical Communication"
+                       data-desc="Authority-building medical video content featuring certified surgical practitioner, clear educational overlays, and crisp audio."
+                       tabindex="0">
+                <div class="work-reel-card__badge">VIDEO EDITING</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7620.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">REAL PEOPLE REAL IMPACT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.6M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Healthcare Story</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_6596 (1).MP4"
+                       data-title="Discipline Builds Freedom: Athletic Training"
+                       data-subtitle="High-Intensity Fitness Reel & Audio"
+                       data-desc="Gritty, high-energy gym cinematic featuring rapid whip transitions, rhythm-matched beat drops, and motivational typography."
+                       tabindex="0">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_6596 (1).MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BETTER THAN YESTERDAY</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Fitness Motivation</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="branding"
+                       data-filter-category="branding"
+                       data-type="image"
+                       data-title="Solaris Roast Brand Identity"
+                       data-subtitle="Visual Identity & Packaging"
+                       data-desc="Complete brand identity system including packaging typography, editorial print collateral, and digital storefront branding."
+                       tabindex="0">
+                <div class="work-reel-card__badge">BRANDING</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/bbe-playbook.png" alt="Solaris Roast Brand Identity" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">SOLARIS ROAST</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.5M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Brand Identity Film</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="Neformat Literature Editorial Poster"
+                       data-subtitle="Print & Social Campaign Artwork"
+                       data-desc="Custom graphic design artwork featuring stark Swiss grid typography, expressive grain treatments, and book cover design."
+                       tabindex="0">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/neformat-poster.jpg" alt="Neformat Literature Editorial Poster" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">NEFORMAT POSTER</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">920K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Literature Editorial Poster</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="Unlimited Democracy Event Campaign"
+                       data-subtitle="Festival Poster & Graphic Design"
+                       data-desc="Bold dynamic event poster system utilizing custom duotone visual treatments, experimental typography, and youth engagement cues."
+                       tabindex="0">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/unlimited-poster1.jpg" alt="Unlimited Democracy Event Campaign" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">WARMING-UP EVENT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Civic Event Campaign Poster</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="BBE Financial Multi-Slide Carousel"
+                       data-subtitle="Social Graphic Design & Data Viz"
+                       data-desc="High-retention Instagram multi-slide carousel transforming complex financial advisory data into sleek, bite-sized visual layouts."
+                       tabindex="0">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/bbe-carousel.jpg" alt="BBE Financial Multi-Slide Carousel" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BBE STRATEGY CAROUSEL</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">890K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Finance Carousel Creative System</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="motion"
+                       data-filter-category="motion"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7615.MP4"
+                       data-title="Turning Ideas Into Impact: 3D Fluid Dynamics"
+                       data-subtitle="Particle & Fluid Motion"
+                       data-desc="Abstract kinetic 3D spheres interacting with fluid dynamics, soft specular lighting, and typography animation."
+                       tabindex="0">
+                <div class="work-reel-card__badge">MOTION GRAPHICS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7615.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">TURNING IDEAS INTO IMPACT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">920K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">3D Fluid Dynamics Simulation</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="web"
+                       data-filter-category="web"
+                       data-type="image"
+                       data-title="SocialSight Conversion Platform"
+                       data-subtitle="Web UI/UX & Design System"
+                       data-desc="Modern responsive digital product landing page engineered with glassmorphic cards, clear CTA hierarchy, and micro-interactions."
+                       tabindex="0">
+                <div class="work-reel-card__badge">WEB DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/meigen-2063726489905123489.jpg" alt="SocialSight Conversion Platform" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">SOCIALSIGHT PLATFORM</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.1M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Conversion Landing Page UI</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ads"
+                       data-filter-category="ads"
+                       data-type="video"
+                       data-video-src="assets/videos/unlimited-democracy-reel.mp4"
+                       data-title="Unlimited Democracy National Campaign"
+                       data-subtitle="Multi-Channel Social Ad"
+                       data-desc="Social campaign mobilizing youth civic participation through bold neon visuals, kinetic rhythm, and event coverage."
+                       tabindex="0">
+                <div class="work-reel-card__badge">ADS & CAMPAIGNS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/unlimited-democracy-reel.mp4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">UNLIMITED DEMOCRACY</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.1M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">National Civic Awareness Ad</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7243 (1).MP4"
+                       data-title="Creator Dialogue & Interview Cut"
+                       data-subtitle="Podcast Production & Viral Formatting"
+                       data-desc="Dual-subject conversational video formatted with snappy split-cuts, punch-ins, audio mastering, and auto-captions."
+                       tabindex="0">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7243 (1).MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">VIRAL RETENTION HOOK</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.7M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Dialogue Podcast Social Cut</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="video"
+                       data-video-src="assets/videos/bbe-finance-reel.mp4"
+                       data-title="BBE Finance Strategy Playbook"
+                       data-subtitle="FinTech Social Creative Direction"
+                       data-desc="Engaging motion graphics breakdown transforming dense financial strategy frameworks into digestible, high-converting social reels."
+                       tabindex="0">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/bbe-finance-reel.mp4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BBE FINANCE PLAYBOOK</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.3M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">FinTech Product Video Reel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="branding"
+                       data-filter-category="branding"
+                       data-type="image"
+                       data-title="Creative Square Brand Identity"
+                       data-subtitle="Typography & Spatial Branding"
+                       data-desc="Bold geometric brand identity exploration with modular grid layouts, bespoke logotype, and spatial environmental graphics."
+                       tabindex="0">
+                <div class="work-reel-card__badge">BRANDING</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/creative-square.png" alt="Creative Square Brand Identity" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">CREATIVE SQUARE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">980K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Identity & Typography System</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="image"
+                       data-title="Solaris Luxe Skincare Ad Campaign"
+                       data-subtitle="E-Commerce Creative • Macro Texture"
+                       data-desc="High-converting visual asset package for botanical skincare featuring studio lighting, water droplet macro textures, and luxury typography."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/meigen-2016511852927438909 (1).jpg" alt="Solaris Luxe Skincare Ad Campaign" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">GLOW CLEAN REPEAT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.2M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Premium Skincare Product Ad</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="motion"
+                       data-filter-category="motion"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7616.MP4"
+                       data-title="Precision Chrono: Ideas That Move"
+                       data-subtitle="3D Luxury Timepiece & Motion"
+                       data-desc="Photorealistic 3D timepiece rendering with kinetic lighting transitions, exploded mechanical movements, and sound design."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">MOTION GRAPHICS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7616.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">IDEAS THAT MOVE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">842K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Motion Graphics Showreel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="video"
+                       data-filter-category="video"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7075.MP4"
+                       data-title="High-Energy Creator Dialogue: 'What If'"
+                       data-subtitle="Short-Form Pacing & Kinetic Subtitles"
+                       data-desc="Fast-paced creator dialogue edit with bold animated subtitles, punchy visual hooks, sound effects, and high-retention pacing."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">VIDEO EDITING</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7075.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">CREATOR DIALOGUE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Creator Dialogue Edit</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="image"
+                       data-title="Pro Athletic Footwear Launch"
+                       data-subtitle="E-Commerce Mobile Ad Funnel"
+                       data-desc="Conversion-focused athletic footwear ad campaign engineered for maximum swipe-up velocity and ROAS across Meta and TikTok."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/mockup-phone1.png" alt="Pro Athletic Footwear Launch" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">JUST A STEP AHEAD</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Athletic Product Launch</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ads"
+                       data-filter-category="ads"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7622.MP4"
+                       data-title="Built To Belong: Luxury Automotive"
+                       data-subtitle="Cinematic Commercial & Sound Design"
+                       data-desc="High-end automotive cinema spot featuring low-key lighting, anamorphic lens flares, sound mastery, and emotional pacing."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">ADS & CAMPAIGNS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7622.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BUILT TO BELONG</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Automotive Campaign</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7621.MP4"
+                       data-title="Boutique Hospitality & Heritage Architecture"
+                       data-subtitle="Desert Architecture & Venue Atmosphere"
+                       data-desc="Atmospheric architectural reel capturing heritage desert stone textures, ambient daylight transitions, and luxury hospitality appeal."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7621.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">DISCOVER MORE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Travel & Lifestyle Reel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="video"
+                       data-filter-category="video"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7620.MP4"
+                       data-title="Surgical Specialist Patient Education"
+                       data-subtitle="Clinical Credibility & Medical Communication"
+                       data-desc="Authority-building medical video content featuring certified surgical practitioner, clear educational overlays, and crisp audio."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">VIDEO EDITING</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7620.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">REAL PEOPLE REAL IMPACT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.6M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Healthcare Story</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_6596 (1).MP4"
+                       data-title="Discipline Builds Freedom: Athletic Training"
+                       data-subtitle="High-Intensity Fitness Reel & Audio"
+                       data-desc="Gritty, high-energy gym cinematic featuring rapid whip transitions, rhythm-matched beat drops, and motivational typography."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_6596 (1).MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BETTER THAN YESTERDAY</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.8M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Fitness Motivation</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="branding"
+                       data-filter-category="branding"
+                       data-type="image"
+                       data-title="Solaris Roast Brand Identity"
+                       data-subtitle="Visual Identity & Packaging"
+                       data-desc="Complete brand identity system including packaging typography, editorial print collateral, and digital storefront branding."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">BRANDING</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/bbe-playbook.png" alt="Solaris Roast Brand Identity" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">SOLARIS ROAST</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.5M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Brand Identity Film</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="Neformat Literature Editorial Poster"
+                       data-subtitle="Print & Social Campaign Artwork"
+                       data-desc="Custom graphic design artwork featuring stark Swiss grid typography, expressive grain treatments, and book cover design."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/neformat-poster.jpg" alt="Neformat Literature Editorial Poster" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">NEFORMAT POSTER</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">920K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Literature Editorial Poster</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="Unlimited Democracy Event Campaign"
+                       data-subtitle="Festival Poster & Graphic Design"
+                       data-desc="Bold dynamic event poster system utilizing custom duotone visual treatments, experimental typography, and youth engagement cues."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/unlimited-poster1.jpg" alt="Unlimited Democracy Event Campaign" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">WARMING-UP EVENT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.4M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Civic Event Campaign Poster</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="graphic"
+                       data-filter-category="graphic"
+                       data-type="image"
+                       data-title="BBE Financial Multi-Slide Carousel"
+                       data-subtitle="Social Graphic Design & Data Viz"
+                       data-desc="High-retention Instagram multi-slide carousel transforming complex financial advisory data into sleek, bite-sized visual layouts."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">GRAPHIC DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/bbe-carousel.jpg" alt="BBE Financial Multi-Slide Carousel" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BBE STRATEGY CAROUSEL</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">890K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Finance Carousel Creative System</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="motion"
+                       data-filter-category="motion"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7615.MP4"
+                       data-title="Turning Ideas Into Impact: 3D Fluid Dynamics"
+                       data-subtitle="Particle & Fluid Motion"
+                       data-desc="Abstract kinetic 3D spheres interacting with fluid dynamics, soft specular lighting, and typography animation."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">MOTION GRAPHICS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7615.MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">TURNING IDEAS INTO IMPACT</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">920K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">3D Fluid Dynamics Simulation</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="web"
+                       data-filter-category="web"
+                       data-type="image"
+                       data-title="SocialSight Conversion Platform"
+                       data-subtitle="Web UI/UX & Design System"
+                       data-desc="Modern responsive digital product landing page engineered with glassmorphic cards, clear CTA hierarchy, and micro-interactions."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">WEB DESIGN</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/meigen-2063726489905123489.jpg" alt="SocialSight Conversion Platform" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">SOCIALSIGHT PLATFORM</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.1M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Conversion Landing Page UI</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ads"
+                       data-filter-category="ads"
+                       data-type="video"
+                       data-video-src="assets/videos/unlimited-democracy-reel.mp4"
+                       data-title="Unlimited Democracy National Campaign"
+                       data-subtitle="Multi-Channel Social Ad"
+                       data-desc="Social campaign mobilizing youth civic participation through bold neon visuals, kinetic rhythm, and event coverage."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">ADS & CAMPAIGNS</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/unlimited-democracy-reel.mp4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">UNLIMITED DEMOCRACY</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">2.1M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">National Civic Awareness Ad</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="social"
+                       data-filter-category="social"
+                       data-type="video"
+                       data-video-src="assets/videos/IMG_7243 (1).MP4"
+                       data-title="Creator Dialogue & Interview Cut"
+                       data-subtitle="Podcast Production & Viral Formatting"
+                       data-desc="Dual-subject conversational video formatted with snappy split-cuts, punch-ins, audio mastering, and auto-captions."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">SOCIAL MEDIA</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/IMG_7243 (1).MP4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">VIRAL RETENTION HOOK</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.7M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Dialogue Podcast Social Cut</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--video"
+                       data-category="ecommerce"
+                       data-filter-category="ecommerce"
+                       data-type="video"
+                       data-video-src="assets/videos/bbe-finance-reel.mp4"
+                       data-title="BBE Finance Strategy Playbook"
+                       data-subtitle="FinTech Social Creative Direction"
+                       data-desc="Engaging motion graphics breakdown transforming dense financial strategy frameworks into digestible, high-converting social reels."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">E-COMMERCE</div>
+                <div class="work-reel-card__media-wrap">
+                  <video class="project-card__video-preview work-reel-card__video" muted loop playsinline preload="metadata" src="assets/videos/bbe-finance-reel.mp4"></video>
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">BBE FINANCE PLAYBOOK</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">1.3M</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">FinTech Product Video Reel</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="project-card work-reel-card is-clone work-reel-card--image"
+                       data-category="branding"
+                       data-filter-category="branding"
+                       data-type="image"
+                       data-title="Creative Square Brand Identity"
+                       data-subtitle="Typography & Spatial Branding"
+                       data-desc="Bold geometric brand identity exploration with modular grid layouts, bespoke logotype, and spatial environmental graphics."
+                       tabindex="-1" aria-hidden="true">
+                <div class="work-reel-card__badge">BRANDING</div>
+                <div class="work-reel-card__media-wrap">
+                  <img class="work-reel-card__img" src="assets/images/creative-square.png" alt="Creative Square Brand Identity" loading="lazy" />
+                  <div class="work-reel-card__scrim"></div>
+                </div>
+                <div class="work-reel-card__center-typography">
+                  <h3 class="work-reel-card__headline">CREATIVE SQUARE</h3>
+                </div>
+                <div class="work-reel-card__bottom-bar">
+                  <div class="work-reel-card__bottom-row">
+                    <div class="work-reel-card__metric-pill">
+                      <span class="work-reel-card__play-icon">▶</span>
+                      <span class="work-reel-card__metric-val">980K</span>
+                    </div>
+                    <span class="work-reel-card__more-btn">···</span>
+                  </div>
+                  <p class="work-reel-card__subtitle">Identity & Typography System</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
