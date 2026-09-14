@@ -26,7 +26,8 @@ const initApp = () => {
   const mobileToggle = document.querySelector('.mobile-toggle');
   const mobileDrawer = document.querySelector('.mobile-drawer');
   const mobileOverlay = document.querySelector('.mobile-drawer__overlay');
-  const mobileLinks = document.querySelectorAll('.mobile-drawer .nav-link');
+  const mobileDrawerClose = document.querySelector('.mobile-drawer__close');
+  const mobileLinks = document.querySelectorAll('.mobile-drawer .nav-link, .mobile-drawer .mobile-drawer__link');
 
   const openDrawer = () => {
     mobileToggle.classList.add('is-open');
@@ -43,6 +44,10 @@ const initApp = () => {
     document.body.style.overflow = '';
     mobileToggle.setAttribute('aria-expanded', 'false');
   };
+
+  if (mobileDrawerClose) {
+    mobileDrawerClose.addEventListener('click', closeDrawer);
+  }
 
   if (mobileToggle) {
     mobileToggle.addEventListener('click', () => {
@@ -551,10 +556,10 @@ const initApp = () => {
     let middleAngle = 4.10;
     let outerAngle = 0.05;
 
-    // Speeds for obvious motion verification:
-    const SPEED_INNER = 0.012;
-    const SPEED_MIDDLE = 0.009;
-    const SPEED_OUTER = 0.006;
+    const toolsSvg = document.getElementById('tools-orbit-svg');
+    const trackOuter = document.getElementById('tools-track-outer');
+    const trackMiddle = document.getElementById('tools-track-middle');
+    const trackInner = document.getElementById('tools-track-inner');
 
     let frameCount = 0;
 
@@ -578,9 +583,16 @@ const initApp = () => {
     }
 
     function animateToolsOrbit() {
-      innerAngle += SPEED_INNER;
-      middleAngle += SPEED_MIDDLE;
-      outerAngle += SPEED_OUTER;
+      const isMobile = window.innerWidth < 768;
+
+      // Mobile speeds (0.0045, 0.0035, 0.0025) vs Desktop speeds (0.007, 0.005, 0.0035)
+      const speedInner = isMobile ? 0.0045 : 0.007;
+      const speedMiddle = isMobile ? 0.0035 : 0.005;
+      const speedOuter = isMobile ? 0.0025 : 0.0035;
+
+      innerAngle += speedInner;
+      middleAngle += speedMiddle;
+      outerAngle += speedOuter;
 
       if (frameCount <= 5 || frameCount % 60 === 0) {
         console.log('[TOOLS ORBIT] Frame', frameCount, 'angles:', innerAngle.toFixed(3), middleAngle.toFixed(3), outerAngle.toFixed(3));
@@ -589,18 +601,72 @@ const initApp = () => {
 
       const stageWidth = stage.clientWidth || stage.offsetWidth || 1100;
       const stageHeight = stage.clientHeight || stage.offsetHeight || 560;
-      const isMobile = window.innerWidth < 768;
+      const centerX = stageWidth / 2;
+      const centerY = stageHeight / 2;
 
-      const rxOuter = isMobile
-        ? Math.max(140, Math.min(185, (stageWidth - 20) / 2))
-        : Math.min(430, Math.max(280, (stageWidth - 80) / 2));
-      const ryOuter = isMobile ? rxOuter * 0.72 : Math.min(210, (stageHeight - 60) / 2);
+      let rxOuter, ryOuter, rxMiddle, ryMiddle, rxInner, ryInner;
 
-      const rxMiddle = rxOuter * 0.75;
-      const ryMiddle = ryOuter * 0.76;
+      if (isMobile) {
+        // Mobile calibrated radii:
+        // Outer: ~185-205px X, ~105-115px Y (scaled down for <= 375px/360px)
+        // Middle: ~145-165px X, ~80-90px Y
+        // Inner: ~105-120px X, ~55-65px Y
+        const maxRx = Math.max(130, (stageWidth - 24) / 2);
+        rxOuter = Math.min(195, maxRx);
+        ryOuter = Math.min(115, Math.max(80, rxOuter * 0.58));
 
-      const rxInner = rxOuter * 0.49;
-      const ryInner = ryOuter * 0.50;
+        rxMiddle = rxOuter * 0.80;
+        ryMiddle = ryOuter * 0.77;
+
+        rxInner = rxOuter * 0.58;
+        ryInner = ryOuter * 0.54;
+
+        if (toolsSvg && trackOuter && trackMiddle && trackInner) {
+          toolsSvg.setAttribute('viewBox', `0 0 ${stageWidth} ${stageHeight}`);
+          trackOuter.setAttribute('cx', centerX.toFixed(1));
+          trackOuter.setAttribute('cy', centerY.toFixed(1));
+          trackOuter.setAttribute('rx', rxOuter.toFixed(1));
+          trackOuter.setAttribute('ry', ryOuter.toFixed(1));
+
+          trackMiddle.setAttribute('cx', centerX.toFixed(1));
+          trackMiddle.setAttribute('cy', centerY.toFixed(1));
+          trackMiddle.setAttribute('rx', rxMiddle.toFixed(1));
+          trackMiddle.setAttribute('ry', ryMiddle.toFixed(1));
+
+          trackInner.setAttribute('cx', centerX.toFixed(1));
+          trackInner.setAttribute('cy', centerY.toFixed(1));
+          trackInner.setAttribute('rx', rxInner.toFixed(1));
+          trackInner.setAttribute('ry', ryInner.toFixed(1));
+        }
+      } else {
+        // Desktop calibrated radii & SVG tracks
+        rxOuter = Math.min(430, Math.max(280, (stageWidth - 80) / 2));
+        ryOuter = Math.min(210, (stageHeight - 60) / 2);
+
+        rxMiddle = rxOuter * 0.75;
+        ryMiddle = ryOuter * 0.76;
+
+        rxInner = rxOuter * 0.49;
+        ryInner = ryOuter * 0.50;
+
+        if (toolsSvg && trackOuter && trackMiddle && trackInner) {
+          toolsSvg.setAttribute('viewBox', '0 0 1100 560');
+          trackOuter.setAttribute('cx', '550');
+          trackOuter.setAttribute('cy', '280');
+          trackOuter.setAttribute('rx', '430');
+          trackOuter.setAttribute('ry', '210');
+
+          trackMiddle.setAttribute('cx', '550');
+          trackMiddle.setAttribute('cy', '280');
+          trackMiddle.setAttribute('rx', '325');
+          trackMiddle.setAttribute('ry', '160');
+
+          trackInner.setAttribute('cx', '550');
+          trackInner.setAttribute('cy', '280');
+          trackInner.setAttribute('rx', '210');
+          trackInner.setAttribute('ry', '105');
+        }
+      }
 
       updateOrbit(innerNodes, innerAngle, rxInner, ryInner);
       updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle);
