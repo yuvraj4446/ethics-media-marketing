@@ -577,7 +577,7 @@ const initApp = () => {
     window.addEventListener('resize', updateStageMetrics);
     window.addEventListener('orientationchange', updateStageMetrics);
 
-    function updateOrbit(nodeList, baseAngle, radiusX, radiusY, isMobile) {
+    function updateOrbit(nodeList, baseAngle, radiusX, radiusY) {
       const centerX = cachedStageWidth / 2;
       const centerY = cachedStageHeight / 2;
 
@@ -588,15 +588,9 @@ const initApp = () => {
         const x = centerX + Math.cos(angle) * radiusX;
         const y = centerY + Math.sin(angle) * radiusY;
 
-        if (isMobile) {
-          node.style.left = '0px';
-          node.style.top = '0px';
-          node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%)`;
-        } else {
-          node.style.left = `${x.toFixed(1)}px`;
-          node.style.top = `${y.toFixed(1)}px`;
-          node.style.transform = 'translate(-50%, -50%)';
-        }
+        node.style.left = `${x.toFixed(1)}px`;
+        node.style.top = `${y.toFixed(1)}px`;
+        node.style.transform = 'translate(-50%, -50%)';
       }
     }
 
@@ -685,9 +679,9 @@ const initApp = () => {
         }
       }
 
-      updateOrbit(innerNodes, innerAngle, rxInner, ryInner, isMobile);
-      updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle, isMobile);
-      updateOrbit(outerNodes, outerAngle, rxOuter, ryOuter, isMobile);
+      updateOrbit(innerNodes, innerAngle, rxInner, ryInner);
+      updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle);
+      updateOrbit(outerNodes, outerAngle, rxOuter, ryOuter);
 
       requestAnimationFrame(animateToolsOrbit);
     }

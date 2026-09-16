@@ -7878,8 +7878,6 @@ html, body {
   }
   .tool-orbit-node {
     position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
     width: 48px !important;
     min-height: 42px !important;
     z-index: 20 !important;
@@ -7887,7 +7885,7 @@ html, body {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    will-change: transform !important;
+    will-change: transform, left, top !important;
     opacity: 1 !important;
     visibility: visible !important;
   }
