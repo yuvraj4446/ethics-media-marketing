@@ -611,16 +611,16 @@ const initApp = () => {
         // INNER: Rx = 90–105px, Ry = 48–58px
         // MIDDLE: Rx = 125–140px, Ry = 68–78px
         // OUTER: Rx = 155–170px, Ry = 88–98px
-        const targetRxInner = 98;
-        const targetRyInner = 52;
-        const targetRxMiddle = 132;
-        const targetRyMiddle = 72;
-        const targetRxOuter = 162;
-        const targetRyOuter = 92;
+        const targetRxInner = 70;
+        const targetRyInner = 42;
+        const targetRxMiddle = 100;
+        const targetRyMiddle = 58;
+        const targetRxOuter = 130;
+        const targetRyOuter = 76;
 
         // Dynamic clamp to ensure nodes NEVER touch or crop screen edges:
         // radiusX = Math.min(desiredRadiusX, availableWidth / 2 - 40);
-        const maxAllowedRx = Math.max(65, (stageWidth / 2) - 40);
+        const maxAllowedRx = Math.max(65, (stageWidth / 2) - 45);
         const clampFactor = Math.min(1, maxAllowedRx / targetRxOuter);
 
         rxOuter = targetRxOuter * clampFactor;
