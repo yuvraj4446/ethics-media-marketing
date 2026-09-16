@@ -13,12 +13,25 @@
   .header__actions { gap: 0 !important; }
 
   /* Hero */
-  .hero { padding-top: 82px !important; padding-bottom: 40px !important; }
+  .hero { padding-top: 82px !important; padding-bottom: 40px !important; overflow: clip !important; }
   .hero__grid { grid-template-columns: minmax(0,1fr) !important; gap: 26px !important; }
   .hero__content, .hero__visual { min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
-  .hero__eyebrow { max-width: 100% !important; font-size: 9px !important; line-height: 1.35 !important; white-space: normal !important; overflow: hidden !important; }
-  .hero__headline { font-size: clamp(40px, 11.4vw, 56px) !important; line-height: .97 !important; letter-spacing: -.045em !important; max-width: 100% !important; }
-  .hero__description { max-width: 345px !important; font-size: 14px !important; line-height: 1.52 !important; }
+  .hero__eyebrow { max-width: 100% !important; width: 100% !important; font-size: 8px !important; line-height: 1.35 !important; white-space: normal !important; overflow: hidden !important; }
+  .hero__headline {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    font-size: clamp(34px, 10vw, 48px) !important;
+    line-height: .98 !important;
+    letter-spacing: -.04em !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+  .hero__headline .text-gradient { white-space: normal !important; display: inline !important; }
+  .hero__description { max-width: 345px !important; font-size: 13px !important; line-height: 1.5 !important; }
   .hero__ctas { display: grid !important; grid-template-columns: 1fr !important; gap: 10px !important; width: 100% !important; }
   .hero__ctas .btn { width: 100% !important; min-height: 48px !important; }
   .hero__meta { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 16px 14px !important; margin-top: 22px !important; }
@@ -64,27 +77,59 @@
   #process .process-card__desc { font-size: 12px !important; line-height: 1.45 !important; }
   #process .process-card__tag { font-size: 9px !important; }
 
-  /* Tools */
-  #skills { overflow: clip !important; padding-block: 52px !important; }
-  #skills .tools-ecosystem-header { flex-direction: column !important; gap: 14px !important; margin-bottom: 8px !important; }
-  #skills .tools-ecosystem-title { font-size: clamp(34px,10vw,48px) !important; line-height: .98 !important; }
-  #skills .tools-ecosystem-sub { font-size: 13px !important; }
+  /* Tools — dedicated mobile canvas; JS positions every tool in 3 compact rings */
+  #skills { overflow: clip !important; padding-block: 46px !important; }
+  #skills .tools-ecosystem-header { flex-direction: column !important; gap: 12px !important; margin-bottom: 4px !important; }
+  #skills .tools-ecosystem-title { font-size: clamp(32px,9.5vw,46px) !important; line-height: .98 !important; }
+  #skills .tools-ecosystem-sub { font-size: 12px !important; line-height: 1.45 !important; }
   #skills .tools-ecosystem-header__right { align-items: flex-start !important; }
   #skills .tools-vision-group { display: none !important; }
-  #skills .tools-orbit-stage-wrapper { width: 100% !important; margin: 4px auto 0 !important; padding: 0 !important; overflow: visible !important; }
-  #skills .tools-orbit-stage { width: 100% !important; height: 360px !important; min-height: 360px !important; overflow: visible !important; }
-  #skills .emm-orbit-core { width: 94px !important; height: 94px !important; }
-  #skills .emm-core-title { font-size: 1.22rem !important; }
-  #skills .emm-core-subtitle { font-size: .48rem !important; }
-  #skills .tool-orbit-node { width: 76px !important; min-height: 64px !important; }
-  #skills .tool-logo, #skills .tool-node-circle { width: 42px !important; height: 42px !important; min-width: 42px !important; min-height: 42px !important; }
-  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img { width: 24px !important; height: 24px !important; }
-  #skills .tool-name, #skills .tool-node-label { font-size: 7.5px !important; max-width: 76px !important; margin-top: 3px !important; }
-  #skills .tools-orbit-tooltip { margin-top: 8px !important; padding: 8px 10px !important; font-size: 9px !important; }
-  #skills .tools-ecosystem-ribbon { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; padding: 12px !important; margin-top: 14px !important; }
+  #skills .tools-orbit-stage-wrapper { width: 100% !important; max-width: 100% !important; margin: 4px auto 0 !important; padding: 0 !important; overflow: visible !important; }
+  #skills .tools-orbit-stage {
+    position: relative !important;
+    width: calc(100vw - 28px) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: 330px !important;
+    min-height: 330px !important;
+    margin-left: 50% !important;
+    transform: translateX(-50%) !important;
+    overflow: visible !important;
+  }
+  #skills .emm-orbit-core { width: 86px !important; height: 86px !important; z-index: 20 !important; }
+  #skills .emm-core-title { font-size: 1.1rem !important; }
+  #skills .emm-core-subtitle { font-size: .46rem !important; }
+  #skills .tool-orbit-node {
+    width: 56px !important;
+    min-width: 56px !important;
+    min-height: 58px !important;
+    padding: 4px 2px !important;
+    border-radius: 12px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+  }
+  #skills .tool-logo, #skills .tool-node-circle {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+  }
+  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img {
+    width: 21px !important;
+    height: 21px !important;
+    object-fit: contain !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  #skills .tool-name, #skills .tool-node-label { font-size: 6.6px !important; line-height: 1.05 !important; max-width: 56px !important; margin-top: 2px !important; }
+  #skills .tools-orbit-tooltip { margin-top: 2px !important; padding: 7px 9px !important; font-size: 8px !important; }
+  #skills .tools-ecosystem-ribbon { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; padding: 12px !important; margin-top: 10px !important; }
   #skills .tools-ribbon-icon { width: 30px !important; height: 30px !important; }
-  #skills .tools-ribbon-text strong { font-size: 13px !important; }
-  #skills .tools-ribbon-text span { font-size: 8px !important; }
+  #skills .tools-ribbon-text strong { font-size: 12px !important; }
+  #skills .tools-ribbon-text span { font-size: 7.5px !important; }
 
   /* Work */
   #work { overflow: clip !important; padding-block: 52px !important; }
@@ -116,22 +161,23 @@
 
 @media (max-width: 430px) {
   .container { padding-inline: 16px !important; }
-  .hero__headline { font-size: clamp(38px,10.8vw,52px) !important; }
-  #skills .tools-orbit-stage { height: 350px !important; min-height: 350px !important; }
-  #skills .tool-orbit-node { width: 72px !important; min-height: 60px !important; }
-  #skills .tool-logo, #skills .tool-node-circle { width: 40px !important; height: 40px !important; min-width: 40px !important; min-height: 40px !important; }
-  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img { width: 23px !important; height: 23px !important; }
-  #skills .tool-name, #skills .tool-node-label { font-size: 7px !important; max-width: 72px !important; }
+  .hero { padding-top: 76px !important; }
+  .hero__headline { font-size: clamp(33px, 9.2vw, 44px) !important; }
+  #skills .tools-orbit-stage { width: calc(100vw - 24px) !important; height: 320px !important; min-height: 320px !important; }
+  #skills .tool-orbit-node { width: 52px !important; min-width: 52px !important; min-height: 54px !important; }
+  #skills .tool-logo, #skills .tool-node-circle { width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; }
+  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img { width: 20px !important; height: 20px !important; }
+  #skills .tool-name, #skills .tool-node-label { font-size: 6.2px !important; max-width: 52px !important; }
   #work .work-reel-card { width: 80vw !important; }
 }
 
 @media (max-width: 360px) {
   .container { padding-inline: 14px !important; }
-  .hero { padding-top: 76px !important; }
-  .hero__headline { font-size: 38px !important; }
-  #skills .tools-orbit-stage { height: 330px !important; min-height: 330px !important; }
-  #skills .tool-orbit-node { width: 66px !important; min-height: 56px !important; }
-  #skills .tool-logo, #skills .tool-node-circle { width: 36px !important; height: 36px !important; min-width: 36px !important; min-height: 36px !important; }
-  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img { width: 21px !important; height: 21px !important; }
-  #skills .tool-name, #skills .tool-node-label { font-size: 6.5px !important; max-width: 66px !important; }
+  .hero { padding-top: 70px !important; }
+  .hero__headline { font-size: 31px !important; }
+  #skills .tools-orbit-stage { width: calc(100vw - 18px) !important; height: 300px !important; min-height: 300px !important; }
+  #skills .tool-orbit-node { width: 48px !important; min-width: 48px !important; min-height: 50px !important; }
+  #skills .tool-logo, #skills .tool-node-circle { width: 30px !important; height: 30px !important; min-width: 30px !important; min-height: 30px !important; }
+  #skills .tool-logo img, #skills .tool-logo-img, #skills .tool-icon-img { width: 18px !important; height: 18px !important; }
+  #skills .tool-name, #skills .tool-node-label { font-size: 5.8px !important; max-width: 48px !important; }
 }
