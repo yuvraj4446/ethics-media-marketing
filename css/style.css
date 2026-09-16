@@ -7809,9 +7809,13 @@ html, body {
 @media (max-width: 768px) {
   .tools-ecosystem-section {
     padding-block: 56px !important;
-    padding-inline: 20px !important;
+    padding-inline: 0 !important;
+  }
+  .tools-ecosystem-section .container {
+    padding-inline: 0 !important;
   }
   .tools-ecosystem-header {
+    padding-inline: 16px !important;
     flex-direction: column !important;
     gap: 1rem !important;
     margin-bottom: 1.25rem !important;
@@ -7821,62 +7825,118 @@ html, body {
     line-height: 1.12 !important;
   }
   .tools-orbit-stage-wrapper {
-    margin-block: 0.75rem !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .tools-orbit-stage {
-    height: 410px !important;
-    min-height: 410px !important;
     position: relative !important;
-    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 393px !important;
+    margin: 0.75rem auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .tools-orbit-stage {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 393px !important;
+    height: 330px !important;
+    min-height: 330px !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+  .tools-orbit-svg {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 5 !important;
+    pointer-events: none !important;
+    overflow: visible !important;
   }
   .emm-orbit-core {
-    width: 96px !important;
-    height: 96px !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 68px !important;
+    height: 68px !important;
+    z-index: 30 !important;
+  }
+  .emm-core-outer-halo {
+    inset: -12px !important;
+  }
+  .emm-core-rotating-ring {
+    inset: -8px !important;
+  }
+  .emm-core-sphere {
+    padding: 0.25rem !important;
   }
   .emm-core-title {
-    font-size: 1.2rem !important;
+    font-size: 1.05rem !important;
   }
   .emm-core-subtitle {
-    font-size: 0.55rem !important;
+    font-size: 0.44rem !important;
+    letter-spacing: 0.12em !important;
+    margin-top: 0.2rem !important;
   }
   .tool-orbit-node {
-    width: 56px !important;
-    min-height: 52px !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 48px !important;
+    min-height: 42px !important;
+    z-index: 20 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    will-change: transform !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   .tool-logo,
   .tool-node-circle {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    border-radius: 50% !important;
+    border: 1.2px solid rgba(0, 210, 255, 0.7) !important;
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.4), 0 3px 8px rgba(0, 0, 0, 0.7) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   .tool-logo img,
   .tool-logo-img,
   .tool-icon-img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 17px !important;
+    height: 17px !important;
+    object-fit: contain !important;
+    display: block !important;
   }
   .tool-name,
   .tool-node-label {
-    font-size: 8.5px !important;
+    font-size: 6.5px !important;
+    font-weight: 600 !important;
     margin-top: 2px !important;
-    max-width: 56px !important;
+    max-width: 48px !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    text-shadow: 0 1px 4px #000 !important;
+    white-space: nowrap !important;
+    text-shadow: 0 1px 3px #000, 0 0 4px #000 !important;
+    background: rgba(4, 9, 20, 0.75) !important;
+    border-radius: 3px !important;
+    padding: 0.5px 2.5px !important;
+    line-height: 1.1 !important;
   }
   .tools-orbit-tooltip {
-    margin-inline: 0.5rem !important;
+    margin-inline: 16px !important;
     padding: 0.6rem 1rem !important;
     font-size: 0.78rem !important;
   }
   .tools-tooltip-text {
     font-size: 0.78rem !important;
+  }
+  .tools-metrics-ribbon {
+    margin-inline: 16px !important;
   }
 }
 
@@ -8071,28 +8131,33 @@ html, body {
 /* Smallest devices (<= 360px) */
 @media (max-width: 360px) {
   .tools-orbit-stage {
-    height: 380px !important;
-    min-height: 380px !important;
+    height: 300px !important;
+    min-height: 300px !important;
   }
   .emm-orbit-core {
-    width: 88px !important;
-    height: 88px !important;
+    width: 62px !important;
+    height: 62px !important;
   }
   .tool-orbit-node {
-    width: 56px !important;
+    width: 44px !important;
   }
   .tool-logo,
   .tool-node-circle {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
   }
   .tool-logo img,
   .tool-logo-img,
   .tool-icon-img {
-    width: 22px !important;
-    height: 22px !important;
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .tool-name,
+  .tool-node-label {
+    font-size: 6px !important;
+    max-width: 44px !important;
   }
   .work-reel-card {
     width: 80vw !important;

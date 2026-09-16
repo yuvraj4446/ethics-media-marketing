@@ -563,11 +563,23 @@ const initApp = () => {
 
     let frameCount = 0;
 
-    function updateOrbit(nodeList, baseAngle, radiusX, radiusY) {
-      const stageWidth = stage.clientWidth || stage.offsetWidth || 1100;
-      const stageHeight = stage.clientHeight || stage.offsetHeight || 560;
-      const centerX = stageWidth / 2;
-      const centerY = stageHeight / 2;
+    let cachedStageWidth = 1100;
+    let cachedStageHeight = 560;
+
+    function updateStageMetrics() {
+      const isMobile = window.innerWidth < 768;
+      const rect = stage.getBoundingClientRect();
+      cachedStageWidth = rect.width || stage.clientWidth || (isMobile ? Math.min(window.innerWidth, 393) : 1100);
+      cachedStageHeight = rect.height || stage.clientHeight || (isMobile ? 330 : 560);
+    }
+
+    updateStageMetrics();
+    window.addEventListener('resize', updateStageMetrics);
+    window.addEventListener('orientationchange', updateStageMetrics);
+
+    function updateOrbit(nodeList, baseAngle, radiusX, radiusY, isMobile) {
+      const centerX = cachedStageWidth / 2;
+      const centerY = cachedStageHeight / 2;
 
       const total = nodeList.length;
       for (let index = 0; index < total; index++) {
@@ -576,19 +588,25 @@ const initApp = () => {
         const x = centerX + Math.cos(angle) * radiusX;
         const y = centerY + Math.sin(angle) * radiusY;
 
-        node.style.left = `${x.toFixed(1)}px`;
-        node.style.top = `${y.toFixed(1)}px`;
-        node.style.transform = 'translate(-50%, -50%)';
+        if (isMobile) {
+          node.style.left = '0px';
+          node.style.top = '0px';
+          node.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%)`;
+        } else {
+          node.style.left = `${x.toFixed(1)}px`;
+          node.style.top = `${y.toFixed(1)}px`;
+          node.style.transform = 'translate(-50%, -50%)';
+        }
       }
     }
 
     function animateToolsOrbit() {
       const isMobile = window.innerWidth < 768;
 
-      // Mobile speeds (0.004, 0.003, 0.002) vs Desktop speeds (0.007, 0.005, 0.0035)
-      const speedInner = isMobile ? 0.004 : 0.007;
-      const speedMiddle = isMobile ? 0.003 : 0.005;
-      const speedOuter = isMobile ? 0.002 : 0.0035;
+      // Mobile speeds (0.0025, 0.0018, 0.0012) vs Desktop speeds (0.007, 0.005, 0.0035)
+      const speedInner = isMobile ? 0.0025 : 0.007;
+      const speedMiddle = isMobile ? 0.0018 : 0.005;
+      const speedOuter = isMobile ? 0.0012 : 0.0035;
 
       innerAngle += speedInner;
       middleAngle += speedMiddle;
@@ -599,38 +617,26 @@ const initApp = () => {
       }
       frameCount++;
 
-      const stageWidth = stage.clientWidth || stage.offsetWidth || 1100;
-      const stageHeight = stage.clientHeight || stage.offsetHeight || 560;
+      const stageWidth = cachedStageWidth;
+      const stageHeight = cachedStageHeight;
       const centerX = stageWidth / 2;
       const centerY = stageHeight / 2;
 
       let rxOuter, ryOuter, rxMiddle, ryMiddle, rxInner, ryInner;
 
       if (isMobile) {
-        // Dedicated mobile composition for ~393px:
-        // INNER: Rx = 90–105px, Ry = 48–58px
-        // MIDDLE: Rx = 125–140px, Ry = 68–78px
-        // OUTER: Rx = 155–170px, Ry = 88–98px
-        const targetRxInner = 70;
-        const targetRyInner = 42;
-        const targetRxMiddle = 100;
-        const targetRyMiddle = 58;
-        const targetRxOuter = 130;
-        const targetRyOuter = 76;
+        // Mobile calibrated radii:
+        // Inner: 78x46, Middle: 118x68, Outer: 150x90
+        const halfNodeWidth = 24;
+        const maxAllowedOuterRx = Math.max(70, (stageWidth / 2) - halfNodeWidth - 8);
+        const scale = Math.min(1, maxAllowedOuterRx / 150);
 
-        // Dynamic clamp to ensure nodes NEVER touch or crop screen edges:
-        // radiusX = Math.min(desiredRadiusX, availableWidth / 2 - 40);
-        const maxAllowedRx = Math.max(65, (stageWidth / 2) - 45);
-        const clampFactor = Math.min(1, maxAllowedRx / targetRxOuter);
-
-        rxOuter = targetRxOuter * clampFactor;
-        ryOuter = targetRyOuter * clampFactor;
-
-        rxMiddle = targetRxMiddle * clampFactor;
-        ryMiddle = targetRyMiddle * clampFactor;
-
-        rxInner = targetRxInner * clampFactor;
-        ryInner = targetRyInner * clampFactor;
+        rxOuter = 150 * scale;
+        ryOuter = 90 * scale;
+        rxMiddle = 118 * scale;
+        ryMiddle = 68 * scale;
+        rxInner = 78 * scale;
+        ryInner = 46 * scale;
 
         if (toolsSvg && trackOuter && trackMiddle && trackInner) {
           toolsSvg.setAttribute('viewBox', `0 0 ${stageWidth} ${stageHeight}`);
@@ -650,7 +656,7 @@ const initApp = () => {
           trackInner.setAttribute('ry', ryInner.toFixed(1));
         }
       } else {
-        // Desktop calibrated radii & SVG tracks
+        // Desktop calibrated radii & SVG tracks (100% untouched)
         rxOuter = Math.min(430, Math.max(280, (stageWidth - 80) / 2));
         ryOuter = Math.min(210, (stageHeight - 60) / 2);
 
@@ -679,15 +685,14 @@ const initApp = () => {
         }
       }
 
-      updateOrbit(innerNodes, innerAngle, rxInner, ryInner);
-      updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle);
-      updateOrbit(outerNodes, outerAngle, rxOuter, ryOuter);
+      updateOrbit(innerNodes, innerAngle, rxInner, ryInner, isMobile);
+      updateOrbit(middleNodes, middleAngle, rxMiddle, ryMiddle, isMobile);
+      updateOrbit(outerNodes, outerAngle, rxOuter, ryOuter, isMobile);
 
       requestAnimationFrame(animateToolsOrbit);
     }
 
     requestAnimationFrame(animateToolsOrbit);
-    window.addEventListener('resize', animateToolsOrbit);
 
     // Tooltip inspection on click/hover without affecting animation
     const tooltipText = document.getElementById('tools-tooltip-text');
