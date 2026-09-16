@@ -585,10 +585,10 @@ const initApp = () => {
     function animateToolsOrbit() {
       const isMobile = window.innerWidth < 768;
 
-      // Mobile speeds (0.0045, 0.0035, 0.0025) vs Desktop speeds (0.007, 0.005, 0.0035)
-      const speedInner = isMobile ? 0.0045 : 0.007;
-      const speedMiddle = isMobile ? 0.0035 : 0.005;
-      const speedOuter = isMobile ? 0.0025 : 0.0035;
+      // Mobile speeds (0.004, 0.003, 0.002) vs Desktop speeds (0.007, 0.005, 0.0035)
+      const speedInner = isMobile ? 0.004 : 0.007;
+      const speedMiddle = isMobile ? 0.003 : 0.005;
+      const speedOuter = isMobile ? 0.002 : 0.0035;
 
       innerAngle += speedInner;
       middleAngle += speedMiddle;
@@ -607,19 +607,30 @@ const initApp = () => {
       let rxOuter, ryOuter, rxMiddle, ryMiddle, rxInner, ryInner;
 
       if (isMobile) {
-        // Mobile calibrated radii:
-        // Outer: ~185-205px X, ~105-115px Y (scaled down for <= 375px/360px)
-        // Middle: ~145-165px X, ~80-90px Y
-        // Inner: ~105-120px X, ~55-65px Y
-        const maxRx = Math.max(130, (stageWidth - 24) / 2);
-        rxOuter = Math.min(195, maxRx);
-        ryOuter = Math.min(115, Math.max(80, rxOuter * 0.58));
+        // Dedicated mobile composition for ~393px:
+        // INNER: Rx = 90–105px, Ry = 48–58px
+        // MIDDLE: Rx = 125–140px, Ry = 68–78px
+        // OUTER: Rx = 155–170px, Ry = 88–98px
+        const targetRxInner = 98;
+        const targetRyInner = 52;
+        const targetRxMiddle = 132;
+        const targetRyMiddle = 72;
+        const targetRxOuter = 162;
+        const targetRyOuter = 92;
 
-        rxMiddle = rxOuter * 0.80;
-        ryMiddle = ryOuter * 0.77;
+        // Dynamic clamp to ensure nodes NEVER touch or crop screen edges:
+        // radiusX = Math.min(desiredRadiusX, availableWidth / 2 - 40);
+        const maxAllowedRx = Math.max(65, (stageWidth / 2) - 40);
+        const clampFactor = Math.min(1, maxAllowedRx / targetRxOuter);
 
-        rxInner = rxOuter * 0.58;
-        ryInner = ryOuter * 0.54;
+        rxOuter = targetRxOuter * clampFactor;
+        ryOuter = targetRyOuter * clampFactor;
+
+        rxMiddle = targetRxMiddle * clampFactor;
+        ryMiddle = targetRyMiddle * clampFactor;
+
+        rxInner = targetRxInner * clampFactor;
+        ryInner = targetRyInner * clampFactor;
 
         if (toolsSvg && trackOuter && trackMiddle && trackInner) {
           toolsSvg.setAttribute('viewBox', `0 0 ${stageWidth} ${stageHeight}`);
@@ -676,6 +687,7 @@ const initApp = () => {
     }
 
     requestAnimationFrame(animateToolsOrbit);
+    window.addEventListener('resize', animateToolsOrbit);
 
     // Tooltip inspection on click/hover without affecting animation
     const tooltipText = document.getElementById('tools-tooltip-text');
@@ -798,7 +810,6 @@ const initApp = () => {
       requestAnimationFrame(renderLoop);
     };
 
-    renderLoop();
     requestAnimationFrame(renderLoop);
 
     // Pause on hover
